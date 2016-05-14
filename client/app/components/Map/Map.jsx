@@ -1,5 +1,5 @@
 import React from "react";
-import initMap, { heatMap } from './map_utils.jsx';
+import { initMap, initHeatMap, getUserLocation, gradient, getPoints, googleArray } from './map_utils.jsx';
 import { connect } from 'react-redux';
 import { updateMapBounds, getPlurbs } from '../../ACTIONS.jsx';
 
