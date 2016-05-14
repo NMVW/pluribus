@@ -5,6 +5,7 @@ import { ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Pin from 'material-ui/svg-icons/maps/pin-drop';
 import Paper from 'material-ui/Paper';
+import Plus from 'material-ui/svg-icons/content/add-circle';
 
 // map utils
 import { rePosition } from '../../Map/map_utils.jsx';
@@ -28,30 +29,42 @@ export default class Message extends React.Component {
     rePosition(this.props.plurb);
   }
   _friendPeek() {
-    this.setState({
-      addFriend: true
-    });
-    console.log('addFriend:', this.state);
+    // toggle state
+    if (this.state.friendMode) {
+      this.setState({
+        friendMode: false
+      });
+    } else {
+      this.setState({
+        friendMode: true
+      });
+    }
+    console.log('friendMode:', this.state);
     console.log('message item should transform to (leftAvatar: plus, primaryText: Name of Friend)');
   }
   render() {
-    let image = this.props.plurb.picture;
     let friend = this.props.plurb.UserGoogid;
     let text = this.props.plurb.text;
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
-    if (this.state.addFriend) {
+    
+    let image = <Avatar
+                  onMouseEnter={ this._friendPeek }
+                  src={this.props.plurb.picture}
+                />
+                
+    // enter friend mode to add user            
+    if (this.state.friendMode) {
       text = name;
+      image = <Plus
+                onClick={ () => {console.log('Add friend (friendGoogId)', friend, this.props.plurb)} }
+                onMouseLeave={ this._friendPeek }
+              />;
     }
+    
     return (
       <Paper>
         <ListItem
-          leftAvatar={
-            <Avatar 
-              onMouseEnter={ this._friendPeek } 
-              onClick={ () => {console.log('Add friend (friendGoogId)', friend, this.props.plurb)} } 
-              src={image} 
-            />
-          }
+          leftIcon={ image }
           primaryText={ text }
           rightIcon={<Pin onClick={ this._reLoc } />}
           style={{width: '96%'}}
