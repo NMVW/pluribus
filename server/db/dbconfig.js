@@ -51,7 +51,7 @@ Plurb.belongsTo(Topic);
 
 // creates these tables in MySQL if they don't already exist. Pass in {force: true}
 // to drop all existing tables and make new ones. ie: sequelize.sync({force: true});
-sequelize.sync({force: true});
+sequelize.sync();
 
 exports.User = User;
 exports.Topic = Topic;
