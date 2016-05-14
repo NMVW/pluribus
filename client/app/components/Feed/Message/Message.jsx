@@ -15,7 +15,7 @@ export default class Message extends React.Component {
   
     // identify default states of message
     this.state = {
-      addFriend: false
+      friendMode: false
     }
     console.log('default state:',this.state);
     this._reLoc = this._reLoc.bind(this);
