@@ -3,6 +3,9 @@ import { initMap, initHeatMap, getUserLocation, gradient, getPoints, googleArray
 import { connect } from 'react-redux';
 import { updateMapBounds, getPlurbs } from '../../ACTIONS.jsx';
 
+export let map;
+let heatmap;
+
 class GoogleMap extends React.Component {
 
   constructor(props) {
@@ -12,7 +15,9 @@ class GoogleMap extends React.Component {
   // Once DOM node has rendered
   componentDidMount(rootNode) {
     // initialize map
-    let map = initMap();
+    map = initMap();
+    heatmap = initHeatMap();
+    heatmap.setMap(map);
 
     // When user pauses map movement, updates new bounds
     map.addListener('idle', () => {
