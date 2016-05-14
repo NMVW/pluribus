@@ -18,10 +18,9 @@ export default class Message extends React.Component {
     this.state = {
       friendMode: false
     }
-    console.log('default state:',this.state);
     this._reLoc = this._reLoc.bind(this);
     this._friendPeek = this._friendPeek.bind(this);
-    // this._addFriend = this._addFriend.bind(this);
+    this._addFriend = this._addFriend.bind(this);
 
   }
   
@@ -41,12 +40,9 @@ export default class Message extends React.Component {
         friendMode: true
       });
     }
-    console.log('friendMode:', this.state);
-    console.log('message item should transform to (leftAvatar: plus, primaryText: Name of Friend)');
   }
   
   _addFriend(friendGoogId) {
-    console.log({friendGoogId});
     // adding a new friend
     fetch('/api/user/friend', {
         method: 'POST',
