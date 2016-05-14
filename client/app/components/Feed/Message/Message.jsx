@@ -24,10 +24,12 @@ export default class Message extends React.Component {
     // this._addFriend = this._addFriend.bind(this);
 
   }
+  
   _reLoc() {
     // "snap" center of map to plurb location
     rePosition(this.props.plurb);
   }
+  
   _friendPeek() {
     // toggle state
     if (this.state.friendMode) {
@@ -42,11 +44,28 @@ export default class Message extends React.Component {
     console.log('friendMode:', this.state);
     console.log('message item should transform to (leftAvatar: plus, primaryText: Name of Friend)');
   }
+  
+  _addFriend(friendGoogId) {
+    console.log({friendGoogId});
+    // adding a new friend
+    fetch('/api/user/friend', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({friendGoogId}),
+      }).then((res) => console.log(res))
+        .catch((error) => {
+          console.error(error);
+      });
+  }
+  
   render() {
-    let friend = this.props.plurb.UserGoogid;
+    // defaults
     let text = this.props.plurb.text;
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
-    
     let image = <Avatar
                   onMouseEnter={ this._friendPeek }
                   src={this.props.plurb.picture}
@@ -56,7 +75,7 @@ export default class Message extends React.Component {
     if (this.state.friendMode) {
       text = name;
       image = <Plus
-                onClick={ () => {console.log('Add friend (friendGoogId)', friend, this.props.plurb)} }
+                onClick={ this._addFriend.bind(this, this.props.plurb.UserGoogid) }
                 onMouseLeave={ this._friendPeek }
               />;
     }
