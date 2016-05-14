@@ -11,7 +11,16 @@ class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
+  componentWillReceiveProps(props) {
+    googleArray.clear();
+    getPoints(props);
+  }
+
+  componentWillMount() {
+    getUserLocation();
+  }
+
   // Once DOM node has rendered
   componentDidMount(rootNode) {
     // initialize map
@@ -40,9 +49,6 @@ class GoogleMap extends React.Component {
       // update bounds on store, then re-fetch plurbs
       this.props.dispatch(updateMapBounds(query.mapBounds))
       this.props.dispatch(getPlurbs(query))
-      
-      // generate heatmap of plurbs
-      heatMap(this.props.plurbs);
     });
   }
 

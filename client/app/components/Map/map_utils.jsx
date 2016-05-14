@@ -1,14 +1,11 @@
 // a good place for helpers
-let map, heatmap;
+import { map } from "./Map.jsx";
 
-// DEFAULT SETTINGS // -------------------
-let mapOptions = {
-  center: {lat: 38.91, lng: -77.04},
-  zoom: 6,
-}
+// This is our google storage object for our heatmap points
+export let googleArray = new google.maps.MVCArray();
 
 // pluribus color scheme
-let gradient = [
+export let gradient = [
   'rgba(0, 255, 255, 0)',
   'rgba(0, 188, 212, 1)',
   'rgba(18, 179, 201, 1)',
@@ -22,49 +19,58 @@ let gradient = [
   'rgba(189, 105, 111, 1)',
   'rgba(208, 97, 101, 1)',
   'rgba(227, 89, 91, 1)',
-  'rgba(246, 81, 81, 1)'
+  'rgba(246, 81, 81, 1)',
 ];
-//default opacity is .6 and radius is 20px
 
-/*
-  HEATMAP HELPERS
-*/
-export function toggleHeatmap() {
-  heatmap.setMap(heatmap.getMap() ? null: map);
+// DEFAULT SETTINGS // -------------------
+let mapOptions = {
+  // Default to whole country
+  center: {lat: 35.69, lng: -91.73},
+  zoom: 4,
 }
-// render variables
-function changeRadius() {
-  heatmap.set('radius', heatmap.get('radius') ? null: 20);
+
+let heatMapOptions = {
+  data: googleArray,
+  dissipating: true,
+  radius: 20,
+  opacity: 10,
+  gradient,
 }
-function changeOpacity() {
-  heatmap.set('opacity', heatmap.get('opacity') ? null: 0.2);
+
+
+export function initMap() {
+  // initialize map w/ options
+  return new google.maps.Map(document.getElementById('map'), mapOptions);
 }
-function getPoints(plurbs) {
-  return plurbs.map((plurb) => {
-    // set weight to plurb.likes to intensify blob accordingly
-    return {location: new google.maps.LatLng(plurb.lat, plurb.long), weight: 1}
+
+export function initHeatMap() {
+  // initialize heatmap w/ options
+  return new google.maps.visualization.HeatmapLayer(heatMapOptions);
+}
+
+export function getPoints(props) {
+  // Updates google storage object every time plurbs store object changes
+  props.plurbs.forEach((plurb) => {
+    let point = {location: new google.maps.LatLng(plurb.lat, plurb.long), weight: 1};
+    googleArray.push(point);
   });
 }
-/*
-  MAP HELPERS
-*/
+
 export function rePosition(plurb) {
-  let pos;
-  
-  // re-center map on plurb
-  if (plurb) {
-    pos = {
-      lat: plurb.lat,
-      lng: plurb.long
-    };
-    map.setCenter(pos);
-  } else if (navigator.geolocation) { // re-center map on user
+  let pos = {
+    lat: plurb.lat,
+    lng: plurb.long
+  };
+  map.setCenter(pos);
+}
+
+export function getUserLocation() {
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       let pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      map.setCenter(pos);
     }, function() {
       handleLocationError(true);
     });
@@ -84,23 +90,3 @@ function handleLocationError(browserHasGeolocation) {
   }
 }
 
-export function heatMap(plurbs) {
-  // initialize heatmap layer on map
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(plurbs),
-    dissipating: true,
-    gradient,
-    map
-  });
-  
-  // middleware for heatmap
-}
-
-export default function initMap() {
-  // initialize map w/ options
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-  // recenter map if possible
-  rePosition();
-  return map;
-}
