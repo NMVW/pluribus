@@ -2,7 +2,11 @@ var Topic = require('../db/dbconfig').Topic;
 
 module.exports = {
   getAllTopics: function (req, res) {
-    Topic.findAll({})
+    Topic.findAll({
+      order: [
+        ['name']
+      ]
+    })
     .then(function (topics) {
       res.status(200).json(topics);
     })
