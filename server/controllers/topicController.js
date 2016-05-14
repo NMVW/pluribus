@@ -13,7 +13,7 @@ module.exports = {
   
   findOrCreateTopic: function (req, res) {
     var topicData = {
-      name: req.body.name
+      name: req.body.name.toUpperCase()
     };
     Topic.findOrCreate({where: topicData})
     .then(function (topic) {
