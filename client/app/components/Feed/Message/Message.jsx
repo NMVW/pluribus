@@ -60,10 +60,18 @@ export default class Message extends React.Component {
       });
   }
   
+  _selectTopic(chosen) {
+    let mapBounds = this.props.mapBounds;
+    
+    // update the search + store
+    selectTopic(chosen, mapBounds);
+    this.props.dispatch(setTopic(chosen, mapBounds));
+  }
+  
   render() {
     // defaults
     let text = this.props.plurb.text;
-    let topic = <p onClick={() => {console.log('select Topic!')}}>{"Topic ID: " + this.props.plurb.TopicId}</p>
+    let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{"Topic ID: " + this.props.plurb.TopicId}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
                   onMouseEnter={ this._friendPeek }
