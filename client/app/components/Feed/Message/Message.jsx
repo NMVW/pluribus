@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // material-ui components
 import { ListItem } from 'material-ui/List';
@@ -7,8 +8,9 @@ import Pin from 'material-ui/svg-icons/maps/pin-drop';
 import Paper from 'material-ui/Paper';
 import Plus from 'material-ui/svg-icons/content/add-circle';
 
-// map utils
+// utils
 import { rePosition } from '../../Map/map_utils.jsx';
+import { selectTopic, setTopic } from '../Search/SEARCH_ACTIONS.jsx';
 
 export default class Message extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ export default class Message extends React.Component {
     this._reLoc = this._reLoc.bind(this);
     this._friendPeek = this._friendPeek.bind(this);
     this._addFriend = this._addFriend.bind(this);
-
+    this._selectTopic = this._selectTopic.bind(this);
   }
   
   _reLoc() {
@@ -91,3 +93,15 @@ export default class Message extends React.Component {
     )
   }
 }
+
+// map the portion of the state tree desired
+const mapStateToProps = (store) => {
+  return {
+    mapBounds: store.pluribusReducer.mapBounds,
+    currentTopicId: store.pluribusReducer.currentTopicId
+  };
+};
+
+// connect the desired state to the relevant component
+export default connect(mapStateToProps)(Message);
+
