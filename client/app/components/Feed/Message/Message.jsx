@@ -61,6 +61,7 @@ export default class Message extends React.Component {
   render() {
     // defaults
     let text = this.props.plurb.text;
+    let topic = <p onClick={() => {console.log('select Topic!')}}>{"Topic ID: " + this.props.plurb.TopicId}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
                   onMouseEnter={ this._friendPeek }
@@ -70,6 +71,7 @@ export default class Message extends React.Component {
     // enter friend mode to add user            
     if (this.state.friendMode) {
       text = name;
+      topic = "Follow";
       image = <Plus
                 onClick={ this._addFriend.bind(this, this.props.plurb.UserGoogid) }
                 onMouseLeave={ this._friendPeek }
@@ -81,6 +83,7 @@ export default class Message extends React.Component {
         <ListItem
           leftIcon={ image }
           primaryText={ text }
+          secondaryText={ topic }
           rightIcon={<Pin onClick={ this._reLoc } />}
           style={{width: '96%'}}
         />
