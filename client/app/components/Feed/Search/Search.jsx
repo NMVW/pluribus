@@ -1,24 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import tapEvents from 'react-tap-event-plugin';
-tapEvents();
 
 // ACTIONS
 import { getTopics, selectTopic, setTopic } from './SEARCH_ACTIONS.jsx';
 
 // MATERIAL COMPONENTS
-import {List} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 import Searchbar from 'material-ui/AppBar';
 import EyeGlass from 'material-ui/svg-icons/action/search';
 import Backspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
 import Loyalty from 'material-ui/svg-icons/action/loyalty';
 
-import DropdownListItem from './DropdownListItem.jsx';
+import DropDownContainer from './DropDownContainer.jsx';
 
 class Search extends React.Component {
   constructor(props) {
@@ -148,25 +144,13 @@ class Search extends React.Component {
           iconElementLeft={<IconButton><EyeGlass color="white" /></IconButton>}
           title={activeElement}
       >
-        <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this._handleRequestClose}
-            animation={PopoverAnimationVertical}
-            useLayerForClickAway={false}
-          >
-            <List>
-              {
-                this.state.filtered.map((topic) => {
-                  return (
-                    <DropdownListItem key={topic.id} topic={topic} onClick={ this._selectTopic.bind(this,topic) } />
-                  );
-                })
-              }
-            </List>
-        </Popover>
+        <DropDownContainer
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          handleReqClose={this._handleRequestClose}
+          filtered={this.state.filtered}
+          selectTopic={this._selectTopic}>
+        </DropDownContainer>
       </Searchbar>
     );
   }
