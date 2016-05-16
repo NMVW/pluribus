@@ -44,6 +44,9 @@ module.exports = function (app) {
   app.route('/api/plurbs/:googId')
     .get(plurbController.getPlurbsByGoogId);
 
+  app.route('/api/friendsplurbs')
+    .get(plurbController.getAllFriendsAllPlurbs);
+
   //callback route for OAuth
   app.route('/callback')
     .get(function (req, res) {
