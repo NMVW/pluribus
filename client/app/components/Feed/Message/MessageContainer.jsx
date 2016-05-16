@@ -22,7 +22,16 @@ class MessageContainer extends React.Component {
         <List>
           { 
             this.props.plurbs.map((plurb) => {
-              return <Message key={plurb.id} plurb={ plurb } />
+              // check filter for what type of plurbs to render
+              if (this.props.filter === 'FRIENDS') {
+                // only plurbs from user friends!
+                return <Message key={plurb.id} plurb={ plurb } /> 
+              } else if (this.props.filter === 'TOPICS'){
+                // all plurbs
+                return <Message key={plurb.id} plurb={ plurb } /> 
+              } else {
+                console.log('Error: Unexpected filter state:', this.props.filter);
+              }
             }) 
           }
         </List>
@@ -36,7 +45,8 @@ const mapStateToProps = (store) => {
   return {
     plurbs: store.pluribusReducer.plurbs,
     mapBounds: store.pluribusReducer.mapBounds,
-    topicId: store.pluribusReducer.currentTopicId
+    topicId: store.pluribusReducer.currentTopicId,
+    filter: store.pluribusReducer.filter
   };
 };
 
