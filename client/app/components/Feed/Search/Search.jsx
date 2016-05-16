@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getTopics, selectTopic, setTopic } from './SEARCH_ACTIONS.jsx';
 
 // MATERIAL COMPONENTS
+import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
@@ -12,7 +13,7 @@ import Searchbar from 'material-ui/AppBar';
 import EyeGlass from 'material-ui/svg-icons/action/search';
 import Backspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import FlatButton from 'material-ui/FlatButton';
-import Loyalty from 'material-ui/svg-icons/action/loyalty';
+import Close from 'material-ui/svg-icons/navigation/close';
 
 import DropDownContainer from './DropDownContainer.jsx';
 
@@ -96,54 +97,40 @@ class Search extends React.Component {
   }
 
   _removeTopic(e) {
+    this.props.dispatch(setTopic(0, this.props.mapBounds));
     this.setState({
-      clickCount: this.state.clickCount+=1,
+      currentTopic: '',
     });
-    if(this.state.clickCount === 2) {
-      this.props.dispatch(setTopic(0, this.props.mapBounds));
-      this.setState({
-        currentTopic: '',
-      });
-    }
   }
   
   render() {
-    let activeElement;
-    if(this.props.currentTopicId) {
-      let topic;
-      let icon;
-      if(this.state.clickCount === 1) {
-        topic = "REMOVE";
-        icon = <Backspace />;
-      } else {
-        topic = this.state.currentTopic;
-        icon = <Loyalty />;
-      };
-      activeElement = <FlatButton
-                        label={topic}
-                        labelPosition="before"
-                        primary={true}
-                        icon={icon}  
-                        backgroundColor={'#627072'}
-                        hoverColor={'#F65151'}
-                        onMouseEnter={ this._setCount }
-                        onTouchTap={ this._removeTopic }
-                      />
+    let element;      
+    let topic = this.state.currentTopic;
+    let icon = (<IconButton tooltip="Remove Topic" tooltipPosition="top-center" onTouchTap={this._removeTopic}>
+                <Close />
+              </IconButton>);
+    if (this.props.currentTopicId) {
+      element = (
+      <Paper style={{'marginTop':'10px', 'display': 'inline-block'}}>
+        <span style={{'display': 'inline-block', 'verticalAlign': 'middle', marginBottom: '16px', paddingLeft:'10px'}}>{topic}</span>
+        <span>{icon}</span>
+      </Paper>); 
     } else {
-      activeElement = <TextField
-                        hintText="Start typing to find a Topic!"
-                        fullWidth={ true }
-                        onChange={ this._textSearch }
-                        onKeyDown={ this._check }
-                        value= { this.state.currentTopic }
-                        inputStyle={{ color : 'white' }}
-                      />
+      element = (
+      <TextField
+        hintText="Start typing to search Topics!"
+        fullWidth={ false }
+        onChange={ this._textSearch }
+        onKeyDown={ this._check }
+        value= { this.state.currentTopic }
+        inputStyle={{ color : 'white' }}
+      />);
     }
+
     return (
-      <Searchbar 
-          iconElementLeft={<IconButton><EyeGlass color="white" /></IconButton>}
-          title={activeElement}
-      >
+      <div style={{'backgroundColor': '#00BCD4', 'width':'100%', paddingBottom:'10px'}}>
+          <div style={{paddingLeft:'10px', 'display': 'inline-block', 'verticalAlign': 'middle'}}><EyeGlass color="white" /></div>
+          <div style={{'display': 'inline-block', 'verticalAlign': 'middle', paddingLeft:'10px'}}>{element}</div>
         <DropDownContainer
           open={this.state.open}
           anchorEl={this.state.anchorEl}
@@ -151,7 +138,7 @@ class Search extends React.Component {
           filtered={this.state.filtered}
           selectTopic={this._selectTopic}>
         </DropDownContainer>
-      </Searchbar>
+      </div>
     );
   }
 }
