@@ -117,19 +117,32 @@ module.exports = {
     }
   },
 
-    getAllFriendsAllPlurbs: function (req, res) {
+  getAllFriendsAllPlurbs: function (req, res) {
     var googId = req.session.user;
+    var friendsGoogIds = [];
+//Create array of all friends googIds
 
-    Plurb.findAll({
-      where: {
-
-      }
+    User.find({where: {googid: googId}})
+    .then(function(user) {
+      user.getFriends({where: {UserGoogid: googId}})
     })
-      .then(function (plurbs) {
-        res.status(200).json(plurbs);
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
+    .then(function(friends){
+      console.log(friends);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+
+    // Plurb.findAll({
+    //   where: {
+    //     UserGoogid: friendsGoogIds
+    //   }
+    // })
+    //   .then(function (plurbs) {
+    //     res.status(200).json(plurbs);
+    //   })
+    //   .catch(function (err) {
+    //     console.error(err);
+    //   });
   }
 };
