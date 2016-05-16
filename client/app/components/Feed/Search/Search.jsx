@@ -21,6 +21,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      helperText: "Start typing to search Topics!",
+      data: this.props.allTopics,
       filtered: [],
       open: false,
       currentTopic: '',
@@ -31,8 +33,23 @@ class Search extends React.Component {
     this._textSearch = this._textSearch.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
     this._check = this._check.bind(this);
-    this._setCount = this._setCount.bind(this);
     this._removeTopic = this._removeTopic.bind(this);
+  }
+
+  componentWillReceiveProps (props) {
+    console.log(props.filter);
+    if (props.filter === 'PRIVATE') {
+      this.setState({
+        helperText: "Start typing to search Users!",
+      });
+    } 
+
+    if (props.filter === 'PUBLIC') {
+      this.setState({
+        data: this.props.allTopics,
+        helperText: "Start typing to search Topics!",
+      });
+    }
   }
 
   _selectTopic(topic) {
@@ -62,7 +79,7 @@ class Search extends React.Component {
     let allTopics = this.props.allTopics;
 
     // Only try to filter if there are topics
-    if(allTopics.length) {
+    if (allTopics.length) {
       this.setState({
         filtered: allTopics.filter((topic) => {
           return topic.name.includes(text); 
@@ -90,12 +107,6 @@ class Search extends React.Component {
     });
   }
 
-  _setCount() {
-    this.setState({
-      clickCount: 0,
-    })
-  }
-
   _removeTopic(e) {
     this.props.dispatch(setTopic(0, this.props.mapBounds));
     this.setState({
@@ -111,14 +122,14 @@ class Search extends React.Component {
               </IconButton>);
     if (this.props.currentTopicId) {
       element = (
-      <Paper style={{'marginTop':'10px', 'display': 'inline-block'}}>
+      <Paper style={{'backgroundColor': '#F65151', 'marginTop':'10px', 'display': 'inline-block'}}>
         <span style={{'display': 'inline-block', 'verticalAlign': 'middle', marginBottom: '16px', paddingLeft:'10px'}}>{topic}</span>
         <span>{icon}</span>
       </Paper>); 
     } else {
       element = (
       <TextField
-        hintText="Start typing to search Topics!"
+        hintText={this.state.helperText}
         fullWidth={ false }
         onChange={ this._textSearch }
         onKeyDown={ this._check }
@@ -128,7 +139,7 @@ class Search extends React.Component {
     }
 
     return (
-      <div style={{'backgroundColor': '#00BCD4', 'width':'100%', paddingBottom:'10px'}}>
+      <div style={{'backgroundColor': '#00BCD4', 'width':'100%', paddingBottom:'10px', height:'65px'}}>
           <div style={{paddingLeft:'10px', 'display': 'inline-block', 'verticalAlign': 'middle'}}><EyeGlass color="white" /></div>
           <div style={{'display': 'inline-block', 'verticalAlign': 'middle', paddingLeft:'10px'}}>{element}</div>
         <DropDownContainer
@@ -149,7 +160,8 @@ const mapStateToProps = (store) => {
     allTopics: store.pluribusReducer.allTopics,
     myTopics: store.pluribusReducer.myTopics,
     mapBounds: store.pluribusReducer.mapBounds,
-    currentTopicId: store.pluribusReducer.currentTopicId
+    currentTopicId: store.pluribusReducer.currentTopicId,
+    filter: store.pluribusReducer.filter,
   };
 };
 
