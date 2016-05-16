@@ -18,7 +18,7 @@ var User = sequelize.define('User', {
     type: Sequelize.STRING,
     primaryKey: true,
     autoIncrement: false,
-    allowNull: true,
+    allowNull: false,
     },
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
