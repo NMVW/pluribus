@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-
-// webpack compilation imports
-// import ACTIONS from './ACTIONS'
-// import REDUCERS from './REDUCERS'
-// import STORE from './STORE'
+import { Provider } from 'react-redux';
 
 // custom components
 import GoogleMap from './components/Map/Map.jsx';
