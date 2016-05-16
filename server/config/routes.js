@@ -16,10 +16,10 @@ module.exports = function (app) {
     .post(userController.findOrCreateUser);
 
     //find or add user friends
-  app.route('/api/user/friend')
+  app.route('/api/friend')
+    .post(userController.addFriend);
     //TODO: uncomment and fleshout method
     //.get(userController.getFriends)
-    .post(userController.addFriend);
 
   /* Topic Routes */
   app.route('/api/topic')
