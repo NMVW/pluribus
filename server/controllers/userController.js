@@ -43,17 +43,19 @@ module.exports = {
 
   //this will add a relationship to the UserFriends table
   addFriend: function (req, res) {
+console.log('here');
     var googId = req.session.user;
+console.log('googId: ', googId );
     var friendId = req.body.friendGoogId;
     User.find({where: {googid: googId}})
     .then(function (user) {
-      user.setFriends(friendId);
+      //user.setFriends(friendId);
       res.status(201).json(user);
     })
     .catch(function (err) {
       console.error(err);
     });
-  },
+  }
 
   // getAllFriendsAllPlurbs: function (req, res) {
   //   var googId = req.session.user;
