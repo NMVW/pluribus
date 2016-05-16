@@ -47,7 +47,7 @@ module.exports = {
     var friendId = req.body.friendGoogId;
     User.find({where: {googid: googId}})
     .then(function (user) {
-      user.setFriends(friendId);
+      user.addFriends(friendId);
       res.status(201).json(user);
     })
     .catch(function (err) {
