@@ -7,8 +7,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Subheader from 'material-ui/Subheader';
 
-import Public from 'material-ui/svg-icons/social/public';
-import Private from 'material-ui/svg-icons/social/people';
+import Topics from 'material-ui/svg-icons/social/public';
+import Friends from 'material-ui/svg-icons/social/people';
 
 class Filter extends React.Component {
   
@@ -19,7 +19,7 @@ class Filter extends React.Component {
   
   _handleSwitch() {
     // this.props.dispatch(loadPlurbs());
-    let filt = this.props.filter === 'PUBLIC' ? 'PRIVATE' : 'PUBLIC';
+    let filt = this.props.filter === 'TOPICS' ? 'FRIENDS' : 'TOPICS';
     this.props.dispatch(setFilter(filt));
   }
   
@@ -30,8 +30,8 @@ class Filter extends React.Component {
         inkBarStyle={{ backgroundColor:'#F65151' }}
 
       >
-        <Tab value="PUBLIC" icon={<Public />} onClick={ this._handleSwitch } />
-        <Tab value="PRIVATE" icon={<Private />} onClick={ this._handleSwitch } />
+        <Tab value="TOPICS" icon={<Topics />} onClick={ this._handleSwitch } />
+        <Tab value="FRIENDS" icon={<Friends />} onClick={ this._handleSwitch } />
       </Tabs>
     </MuiThemeProvider>
   }
