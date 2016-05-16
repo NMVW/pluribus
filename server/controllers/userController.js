@@ -53,10 +53,5 @@ module.exports = {
     .catch(function (err) {
       console.error(err);
     });
-  },
-
-  // getAllFriendsAllPlurbs: function (req, res) {
-  //   var googId = req.session.user;
-  //   res.status(200).json(plurbs);
-  // }
+  }
 };
