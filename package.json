@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node ./server/server.js",
     "webpack:deploy": "NODE_ENV=production webpack --config webpack.prod.config.js --colors",
-    "heroku-postbuild": "npm run webpack:deploy"
+    "heroku-postbuild": "npm run webpack:deploy",
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
