@@ -115,5 +115,21 @@ module.exports = {
         console.error(err);
       });
     }
+  },
+
+    getAllFriendsAllPlurbs: function (req, res) {
+    var googId = req.session.user;
+
+    Plurb.findAll({
+      where: {
+
+      }
+    })
+      .then(function (plurbs) {
+        res.status(200).json(plurbs);
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
   }
 };
