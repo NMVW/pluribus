@@ -46,7 +46,7 @@ export default class Message extends React.Component {
   
   _addFriend(friendGoogId) {
     // adding a new friend
-    fetch('/api/user/friend', {
+    fetch('/api/friend', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
