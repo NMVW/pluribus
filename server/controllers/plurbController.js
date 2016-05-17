@@ -91,6 +91,7 @@ module.exports = {
     if(!topicId && !googId) {
   //if topic id is 0 and there is no googId, send back all plurbs in that location regardless of topic
       query = {
+        include: [Topic],
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]}
@@ -98,6 +99,7 @@ module.exports = {
       };
     } else if (!topicId) {
       query = {
+        include: [Topic],
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]},
@@ -106,6 +108,7 @@ module.exports = {
       };
     } else if (!googId) {
       query = {
+        include: [Topic],
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]},
@@ -114,6 +117,7 @@ module.exports = {
       };      
     } else {
       query = {
+        include: [Topic],
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]},
