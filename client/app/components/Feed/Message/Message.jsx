@@ -67,7 +67,7 @@ export default class Message extends React.Component {
   render() {
     // defaults
     let text = this.props.plurb.text;
-    let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{"Topic ID: " + this.props.plurb.TopicId}</p>
+    let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{this.props.plurb.Topic.name}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
                   onMouseEnter={ this._friendPeek }
