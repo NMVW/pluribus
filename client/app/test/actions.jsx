@@ -1,5 +1,5 @@
 import expect from 'expect';
-import axios from 'axios';
+import fetch from 'node-fetch';
 import * as Actions from '../ACTIONS.jsx';
 import * as SearchActions from '../components/Feed/Search/SEARCH_ACTIONS.jsx';
 
@@ -57,10 +57,14 @@ describe('asynchronous actions', () => {
   it('should create action to load plurbs', (done) => {
     let fetching = false;
     
-    axios('/api/plurbs', {
-        method: 'post',
-        url: '/api/plurbs',
-        data: JSON.stringify({}),
+    fetch('/api/plurbs', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({}),
       }).then((plurbs) => plurbs.text())
         .then((plurbs) => {
           const loadAction = {

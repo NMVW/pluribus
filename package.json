@@ -55,6 +55,7 @@
     "enzyme": "^2.2.0",
     "expect": "^1.19.0",
     "mocha": "^2.4.5",
+    "node-fetch": "^1.5.2",
     "react-addons-test-utils": "^15.0.2",
     "redux-devtools": "^3.2.0",
     "supertest": "^1.2.0"
