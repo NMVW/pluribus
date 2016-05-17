@@ -2,6 +2,8 @@
 import store from '../../../STORE.jsx';
 
 export const ADD_FRIEND = 'ADD_FRIEND';
+export const GET_FRIENDS = 'GET_FRIENDS';
+export const LOAD_FRIENDS = 'LOAD_FRIENDS';
 
 export function addFriend(friendGoogId) {
   // adding a new friend
@@ -41,4 +43,8 @@ export function getFriends() {
         console.error(error);
     });
   return { type: GET_FRIENDS, fetching: true }
+}
+
+export function loadFriends(myFriends) {
+  return { type: LOAD_FRIENDS, fetching: false, myFriends }
 }
