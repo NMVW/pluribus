@@ -42,13 +42,15 @@ class Search extends React.Component {
 
   componentWillReceiveProps (newProps) {
     if (this.state.filter !== newProps.filter) {
-      this._removeItem();
       let topicId = this.props.topicId;
       let googId = this.props.googId;
       let mapBounds = this.props.mapBounds;
+      this._removeItem();
       if(newProps.filter === "TOPICS") {
+        console.log('CWRP');
         this.props.dispatch(setTopic(0, this.props.mapBounds));
       } else {
+        console.log('CWRP');
         this.props.dispatch(setUser(0, this.props.mapBounds));     
       }
     }
@@ -61,7 +63,7 @@ class Search extends React.Component {
         helperText: "Start typing to search Users!",
         filtered: [],
       });
-    } 
+    }
 
     if (newProps.filter === 'TOPICS') {
       this.setState({
@@ -151,11 +153,13 @@ class Search extends React.Component {
     });
   }
 
-  _removeItem() {
-    if(this.props.filter === "FRIENDS") {
+  _removeItem(e) {
+    if(this.state.filter === "FRIENDS") {
+      console.log('removeTopic')
       this.props.dispatch(setUser(0, this.props.mapBounds));
     } else {
-    this.props.dispatch(setTopic(0, this.props.mapBounds));   
+      console.log('removeUser')
+      this.props.dispatch(setTopic(0, this.props.mapBounds));   
     }
 
     this.setState({

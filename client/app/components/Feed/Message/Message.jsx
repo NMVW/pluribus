@@ -55,6 +55,7 @@ export default class Message extends React.Component {
   }
   
   _selectTopic(chosen) {
+    console.log('happening');
     let mapBounds = this.props.mapBounds;
     
     // Include filter awareness to choose topic/user
