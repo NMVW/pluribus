@@ -74,9 +74,7 @@ module.exports = {
     var friendGoogid = req.params.googid;
     User.find({where: {googid: googId}})
     .then(function(user) {
-      //get all friends, find the one to remove, remove from array.
-      //set friends
-
+      user.removeFriend(friendGoogid);
     })
     .catch(function (err) {
       console.error(err);
