@@ -70,6 +70,10 @@ function pluribusReducer(state = initialState, action) {
       return Object.assign({}, state, {
         fetching: action.fetching
       })
+    case GET_FRIENDS:
+      return Object.assign({}, state, {
+        fetching: action.fetching
+      })
     default: 
       return state;
   }

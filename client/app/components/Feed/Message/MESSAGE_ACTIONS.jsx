@@ -1,4 +1,6 @@
 // import selectSomething() from search component
+import store from '../../../STORE.jsx';
+
 export const ADD_FRIEND = 'ADD_FRIEND';
 
 export function addFriend(friendGoogId) {
@@ -14,12 +16,12 @@ export function addFriend(friendGoogId) {
     }).then((res) => {
       console.log('res to addFriend', res);
       // update the store friend list (myFriends)
-      // store.dispatch(getFriends())
+      store.dispatch(getFriends())
     })
       .catch((error) => {
         console.error(error);
     });
-  return { type: ADD_FRIEND, fetching:true}
+  return { type: ADD_FRIEND, fetching:true }
 }
 
 export function getFriends() {
@@ -33,8 +35,10 @@ export function getFriends() {
       credentials: 'same-origin',
     }).then((friendsPlurbs) => {
       console.log('Store googIds in myFriends', friendsPlurbs)
+      // store.dispatch(loadFriends(mapped googIds))
     })
       .catch((error) => {
         console.error(error);
     });
+  return { type: GET_FRIENDS, fetching: true }
 }
