@@ -11,10 +11,15 @@ export function addFriend(friendGoogId) {
       },
       credentials: 'same-origin',
       body: JSON.stringify({friendGoogId}),
-    }).then((res) => console.log(res))
+    }).then((res) => {
+      console.log('res to addFriend', res);
+      // update the store friend list (myFriends)
+      // store.dispatch(getFriends())
+    })
       .catch((error) => {
         console.error(error);
     });
+  return { type: ADD_FRIEND, fetching:true}
 }
 
 export function getFriends() {
