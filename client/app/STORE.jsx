@@ -13,6 +13,7 @@ const initialState = {
   },
   plurbs: [],
   filter: 'TOPICS',
+  myFriends: [],
   myTopics: [],
   allTopics: [],
   fetching: false,

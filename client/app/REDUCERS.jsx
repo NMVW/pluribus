@@ -16,6 +16,7 @@ const initialState = {
   },
   plurbs: [],
   filter: 'TOPICS',
+  myFriends: [],
   myTopics: [],
   allTopics: [],
   fetching: false,
@@ -76,7 +77,7 @@ function pluribusReducer(state = initialState, action) {
       })
     case LOAD_FRIENDS:
       return Object.assign({}, state, {
-        myFriends: JSON.parse(action.myFriends),
+        myFriends: action.myFriends,
         fetching: action.fetching
       })
     default: 
