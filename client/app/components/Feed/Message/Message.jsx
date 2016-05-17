@@ -66,21 +66,29 @@ export default class Message extends React.Component {
   
   render() {
     // defaults
+    let friends = this.props.myFriends;
+    let friend = this.props.plurb.UserGoogid;
     let text = this.props.plurb.text;
-    let style = {width: '96%'};
+    let listStyle = {width: '96%'};
+    if (friends.includes(friend)) {
+      listStyle.backgroundColor = "rgba(0,188,212,.2)";
+    }
     let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{this.props.plurb.Topic.name}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
+                  size={50}
                   onMouseEnter={ this._friendPeek }
                   src={this.props.plurb.picture}
                 />
-    let location = <Pin color={"green"} onClick={ this._reLoc } />
+    let location = <Pin 
+                  color={"rgba(246, 110, 110, 1)"} 
+                  hoverColor={"rgba(246, 81, 81, 1)"} 
+                  onClick={ this._reLoc } 
+                />
              
     // enter friend mode to add user (implement logic to verify if already friend!)           
     if (this.state.friendMode) {
       text = name;
-      let friends = this.props.myFriends;
-      let friend = this.props.plurb.UserGoogid;
       
       // existing friendship, remove friend
       if (friends.includes(friend)) {
@@ -107,16 +115,16 @@ export default class Message extends React.Component {
             leftAvatar={ image }
             primaryText={ text }
             secondaryText={ topic }
-            rightIcon={ location }
-            style={style}
+            rightIconButton={ location }
+            style={listStyle}
           />;
     } else {
       el = <ListItem
             leftCheckbox={ image }
             primaryText={ text }
             secondaryText={ topic }
-            rightIcon={ location }
-            style={style}
+            rightIconButton={ location }
+            style={listStyle}
           />;
     }
     
