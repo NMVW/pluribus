@@ -4,7 +4,6 @@ import store from '../../../STORE.jsx';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const LOAD_FRIENDS = 'LOAD_FRIENDS';
-
 export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 
 export function removeFriend(friendGoogId) {

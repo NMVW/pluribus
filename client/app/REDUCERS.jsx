@@ -2,7 +2,7 @@
 // REDUCER for APP component
 import { combineReducers } from 'redux';
 import { SELECT_TOPIC, GET_TOPICS, LOAD_TOPICS } from './components/Feed/Search/SEARCH_ACTIONS.jsx';
-import { ADD_FRIEND, GET_FRIENDS, LOAD_FRIENDS } from './components/Feed/Message/MESSAGE_ACTIONS.jsx';
+import { ADD_FRIEND, GET_FRIENDS, LOAD_FRIENDS, REMOVE_FRIEND } from './components/Feed/Message/MESSAGE_ACTIONS.jsx';
 import { FETCHING, SET_FILTER, CREATE_PLURB, LOAD_PLURBS, GET_PLURBS, UPDATE_MAP_BOUNDS, AUTHENTICATE } from './ACTIONS.jsx';
 
 const initialState = {
@@ -68,6 +68,10 @@ function pluribusReducer(state = initialState, action) {
         authenticated: action.verified
       })
     case ADD_FRIEND:
+      return Object.assign({}, state, {
+        fetching: action.fetching
+      })
+    case REMOVE_FRIEND:
       return Object.assign({}, state, {
         fetching: action.fetching
       })
