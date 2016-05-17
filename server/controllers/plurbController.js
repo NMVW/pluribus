@@ -1,11 +1,12 @@
 var Plurb = require('../db/dbconfig').Plurb;
 var User = require('../db/dbconfig').User;
-
+var Topic = require('../db/dbconfig').Topic;
 
 module.exports = {
-  //currently not being used
   getAllPlurbs: function (req, res) {
-    Plurb.findAll({})
+    Plurb.findAll({
+       include: [Topic]
+    })
     .then(function (plurbs) {
       res.status(200).json(plurbs);
     })
