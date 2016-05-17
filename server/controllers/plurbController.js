@@ -118,16 +118,18 @@ module.exports = {
   },
 
   getAllFriendsAllPlurbs: function (req, res) {
-    var googId = req.session.user;
+    var googId = req.body.user;
+    // var googId = req.session.user;
     var friendsGoogIds = [];
 //Create array of all friends googIds
 
     User.find({where: {googid: googId}})
     .then(function(user) {
-      user.getFriends({where: {UserGoogid: googId}})
-    })
-    .then(function(friends){
-      console.log(friends);
+      //this built in Sequelize method will pull all friends
+      user.getFriends()
+       .then(function(friends){
+         console.log('friends: ', friends);
+       });
     })
     .catch(function (err) {
       console.error(err);
