@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // ACTIONS
-import { getTopics, selectTopic, setTopic } from './SEARCH_ACTIONS.jsx';
+import { getTopics, selectTopic, setTopic, getUsers, setUser } from './SEARCH_ACTIONS.jsx';
 
 // MATERIAL COMPONENTS
 import Paper from 'material-ui/Paper';
@@ -22,31 +22,34 @@ class Search extends React.Component {
     super(props);
     this.state = {
       helperText: "Start typing to search Topics!",
-      data: this.props.allTopics,
       filtered: [],
+      data: [],
       open: false,
+      searchText: 'name',
       currentTopic: '',
-      clickCount: '',
     };
+
     this.props.dispatch(getTopics());
+    this.props.dispatch(getUsers());
     this._selectTopic = this._selectTopic.bind(this);
     this._textSearch = this._textSearch.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
     this._check = this._check.bind(this);
     this._removeTopic = this._removeTopic.bind(this);
+    this._selectUser = this._selectUser.bind(this);
   }
 
   componentWillReceiveProps (props) {
-    console.log(props.filter);
-    if (props.filter === 'PRIVATE') {
+    if (props.filter === 'FRIENDS') {
       this.setState({
+        data: props.allUsers,
         helperText: "Start typing to search Users!",
       });
     } 
 
-    if (props.filter === 'PUBLIC') {
+    if (props.filter === 'TOPICS') {
       this.setState({
-        data: this.props.allTopics,
+        data: props.allTopics,
         helperText: "Start typing to search Topics!",
       });
     }
@@ -68,6 +71,21 @@ class Search extends React.Component {
     });
   }
 
+  _selectUser(user) {
+    let mapBounds = this.props.mapBounds;
+
+    // Function that checks the DB for the user name
+    this.props.dispatch(setUser(user.googid, mapBounds));
+
+    // Closes the dropdown
+    this._handleRequestClose();
+
+    // Set's the local state
+    this.setState({
+      currentTopic: user.firstName + " " + user.lastName,
+    });
+  }
+
   _check(e) {
     if(e.key === 'Enter') {
       this._selectTopic(e.target.value);
@@ -75,14 +93,22 @@ class Search extends React.Component {
   }
   
   _textSearch(e) {
+    let state = this.props.filter;
     let text = e.target.value;
-    let allTopics = this.props.allTopics;
+    let data = this.state.data;
 
     // Only try to filter if there are topics
-    if (allTopics.length) {
+    if (data.length) {
       this.setState({
-        filtered: allTopics.filter((topic) => {
-          return topic.name.includes(text); 
+        filtered: data.filter((item) => {
+          if (state === "FRIENDS") {
+            console.log(item.firstName + item.lastName);
+            name = item.firstName + item.lastName;
+          } else {
+            name = item.name;
+          }
+
+          return name.includes(text); 
         }),
       });
     }
@@ -108,7 +134,12 @@ class Search extends React.Component {
   }
 
   _removeTopic(e) {
-    this.props.dispatch(setTopic(0, this.props.mapBounds));
+    if(this.props.filter === "FRIENDS") {
+      this.props.dispatch(setUser(0, this.props.mapBounds));
+    } else {
+    this.props.dispatch(setTopic(0, this.props.mapBounds));   
+    }
+
     this.setState({
       currentTopic: '',
     });
@@ -120,7 +151,7 @@ class Search extends React.Component {
     let icon = (<IconButton tooltip="Remove Topic" tooltipPosition="top-center" onTouchTap={this._removeTopic}>
                 <Close />
               </IconButton>);
-    if (this.props.currentTopicId) {
+    if (this.props.currentTopicId || this.props.currentUserId) {
       element = (
       <Paper style={{'backgroundColor': '#F65151', 'marginTop':'10px', 'display': 'inline-block'}}>
         <span style={{'display': 'inline-block', 'verticalAlign': 'middle', marginBottom: '16px', paddingLeft:'10px'}}>{topic}</span>
@@ -147,7 +178,9 @@ class Search extends React.Component {
           anchorEl={this.state.anchorEl}
           handleReqClose={this._handleRequestClose}
           filtered={this.state.filtered}
-          selectTopic={this._selectTopic}>
+          selectTopic={this._selectTopic}
+          selectUser={this._selectUser}
+          filter={this.props.filter}>
         </DropDownContainer>
       </div>
     );
@@ -162,6 +195,8 @@ const mapStateToProps = (store) => {
     mapBounds: store.pluribusReducer.mapBounds,
     currentTopicId: store.pluribusReducer.currentTopicId,
     filter: store.pluribusReducer.filter,
+    allUsers: store.pluribusReducer.allUsers,
+    currentUserId: store.pluribusReducer.currentUserId,
   };
 };
 

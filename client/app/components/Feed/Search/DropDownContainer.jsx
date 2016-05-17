@@ -10,6 +10,7 @@ export default class DropDownContainer extends React.Component {
   }
 
   render() {
+
     return (
       <Popover
           open={this.props.open}
@@ -22,11 +23,17 @@ export default class DropDownContainer extends React.Component {
         >
             <List>
               {
-                this.props.filtered.map((topic) => {
+                this.props.filtered.map(function(item) {
+                  let key = item.id;
+                  let onClick = this.props.selectTopic.bind(this, item);
+                  if(this.props.filter === "FRIENDS") {
+                    key = item.googid;
+                    onClick = this.props.selectUser.bind(this, item);
+                  }
                   return(
-                    <DropdownListItem key={topic.id} topic={topic} onClick={ this.props.selectTopic.bind(this, topic) } /> 
+                    <DropdownListItem key={key} item={item} onClick={onClick} />
                   );
-                })
+                }, this)
               }
             </List>
         </Popover>

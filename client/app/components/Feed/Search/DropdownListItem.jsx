@@ -9,8 +9,14 @@ export default class DropdownListItem extends React.Component {
   }
 
   render() {
+    let name;
+    if(this.props.item.name) {
+      name = this.props.item.name;
+    } else {
+      name = this.props.item.firstName + " " + this.props.item.lastName;
+    }
     return (
-      <ListItem primaryText={ this.props.topic.name }
+      <ListItem primaryText={ name }
                 leftIcon={<Label />}
                 onClick={ this.props.onClick } />
     );

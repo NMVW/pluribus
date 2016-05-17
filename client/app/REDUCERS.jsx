@@ -1,8 +1,9 @@
 //===================================================
 // REDUCER for APP component
 import { combineReducers } from 'redux';
-import { SELECT_TOPIC, GET_TOPICS, LOAD_TOPICS } from './components/Feed/Search/SEARCH_ACTIONS.jsx';
+
 import { ADD_FRIEND, GET_FRIENDS, LOAD_FRIENDS, REMOVE_FRIEND } from './components/Feed/Message/MESSAGE_ACTIONS.jsx';
+import { SELECT_TOPIC, GET_TOPICS, LOAD_TOPICS, SELECT_USER, GET_USERS, LOAD_USERS } from './components/Feed/Search/SEARCH_ACTIONS.jsx';
 import { FETCHING, SET_FILTER, CREATE_PLURB, LOAD_PLURBS, GET_PLURBS, UPDATE_MAP_BOUNDS, AUTHENTICATE } from './ACTIONS.jsx';
 
 const initialState = {
@@ -19,6 +20,8 @@ const initialState = {
   myFriends: [],
   myTopics: [],
   allTopics: [],
+  allUsers: [],
+  myUsers: [],
   fetching: false,
 }
 
@@ -81,7 +84,19 @@ function pluribusReducer(state = initialState, action) {
       })
     case LOAD_FRIENDS:
       return Object.assign({}, state, {
-        myFriends: action.myFriends,
+        myFriends: action.myFriends
+      })
+    case SELECT_USER:
+      return Object.assign({}, state, {
+        currentUserId: action.googId
+      })
+    case GET_USERS:
+      return Object.assign({}, state, {
+        fetching: action.fetching
+      })
+    case LOAD_USERS:
+      return Object.assign({}, state, {
+        allUsers: JSON.parse(action.users),
         fetching: action.fetching
       })
     default: 

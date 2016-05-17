@@ -16,6 +16,8 @@ const initialState = {
   myFriends: [],
   myTopics: [],
   allTopics: [],
+  allUsers: [],
+  myUsers: [],
   fetching: false,
 }
 

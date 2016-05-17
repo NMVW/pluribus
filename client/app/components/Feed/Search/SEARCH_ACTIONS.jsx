@@ -5,6 +5,9 @@ import { getPlurbs } from '../../../ACTIONS.jsx';
 export const SELECT_TOPIC = 'SELECT_TOPIC';
 export const GET_TOPICS = 'GET_TOPICS';
 export const LOAD_TOPICS = 'LOAD_TOPICS';
+export const SELECT_USER = 'SELECT_USER';
+export const GET_USERS = 'GET_USERS';
+export const LOAD_USERS = 'LOAD_USERS';
 
 export function selectTopic(currentTopic, mapBounds) {
   fetch('/api/topic', {
@@ -52,6 +55,34 @@ export function getTopics() {
   return { type: GET_TOPICS, fetching: true };
 }
 
+
 export function loadTopics(topics) {
-  return { type: LOAD_TOPICS, fetching: false, topics }
+  return { type: LOAD_TOPICS, fetching: false, topics };
+}
+
+export function setUser(googId, mapBounds) {
+  store.dispatch(getPlurbs({ null, mapBounds, googId }));
+  return { type: SELECT_USER, googId };
+}
+
+export function getUsers() {
+  fetch('/api/users', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin'
+    }).then((users) => users.text())
+      .then((users) => {
+        store.dispatch(loadUsers(users));
+    }).catch((error) => {
+      console.error("This is the error in getUsers",error);
+    });
+
+  return { type: GET_USERS, fetching: true };
+}
+
+export function loadUsers(users) {
+  return { type: LOAD_USERS, fetching: false, users };
 }
