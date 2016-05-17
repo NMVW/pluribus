@@ -58,6 +58,8 @@ export default class Message extends React.Component {
   _selectTopic(chosen) {
     let mapBounds = this.props.mapBounds;
     
+    // Include filter awareness to choose topic/user
+    
     // update the search + store
     selectTopic(chosen, mapBounds);
     this.props.dispatch(setTopic(chosen, mapBounds));
@@ -114,7 +116,8 @@ const mapStateToProps = (store) => {
   return {
     mapBounds: store.pluribusReducer.mapBounds,
     currentTopicId: store.pluribusReducer.currentTopicId,
-    myFriends: store.pluribusReducer.myFriends
+    myFriends: store.pluribusReducer.myFriends,
+    filter: store.pluribusReducer.filter
   };
 };
 
