@@ -36,12 +36,17 @@ export function getFriends() {
       },
       credentials: 'same-origin',
     }).then((res) => res.text()).then((friendsPlurbs) => {
-      // find set of friends from plurbs
-      let friends = Object.keys(JSON.parse(friendsPlurbs).reduce((unique, plurb) => {
-        unique[plurb.UserGoogid] = plurb.UserGoogid
-        return unique;
-      }, {}))
-      store.dispatch(loadFriends(friends))
+      if (friendsPlurbs) {
+        // find set of friends from plurbs
+        let friends = Object.keys(JSON.parse(friendsPlurbs).reduce((unique, plurb) => {
+          unique[plurb.UserGoogid] = plurb.UserGoogid
+          return unique;
+        }, {}))
+        store.dispatch(loadFriends(friends))
+      } else {
+        // no friends :(
+        store.dispatch(loadFriends([]))
+      }
     })
       .catch((error) => {
         console.error(error);
