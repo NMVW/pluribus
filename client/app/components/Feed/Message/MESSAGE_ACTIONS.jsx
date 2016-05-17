@@ -8,7 +8,7 @@ export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 
 export function removeFriend(friendGoogId) {
   // removing friend
-  fetch('/api/removefriend/'+friendGoogId, {
+  fetch('/api/removefriend/' + friendGoogId, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -16,10 +16,11 @@ export function removeFriend(friendGoogId) {
     },
     credentials: 'same-origin',
   }).then((res) => {
-    console.log('res to removeFriend', res);
     // update the store friend list (myFriends)
     store.dispatch(getFriends())
-  }).catch((err) => console.error(err));
+  }).catch((err) => {
+    console.error(err);
+  });
   
   return { type: REMOVE_FRIEND, fetching: true }
 }
@@ -35,7 +36,6 @@ export function addFriend(friendGoogId) {
       credentials: 'same-origin',
       body: JSON.stringify({friendGoogId}),
     }).then((res) => {
-      console.log('res to addFriend', res);
       // update the store friend list (myFriends)
       store.dispatch(getFriends())
     })
