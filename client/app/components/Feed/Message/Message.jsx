@@ -70,13 +70,16 @@ export default class Message extends React.Component {
     let friend = this.props.plurb.UserGoogid;
     let text = this.props.plurb.text;
     let listStyle = {width: '96%'};
+    let avatarStyle = {border: 'none'};
     if (friends.includes(friend)) {
       listStyle.backgroundColor = "rgba(0,188,212,.2)";
+      avatarStyle.border = "2px solid rgb(0,188,212)";
     }
     let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{this.props.plurb.Topic.name}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
                   size={50}
+                  style={avatarStyle}
                   onMouseEnter={ this._friendPeek }
                   src={this.props.plurb.picture}
                 />
@@ -101,7 +104,7 @@ export default class Message extends React.Component {
       } else {
         topic = "Follow";
         image = <Plus
-                  color={"green"}
+                  color={"rgb(0,188,212)"}
                   onClick={ this._addFriend.bind(this, this.props.plurb.UserGoogid) }
                   onMouseLeave={ this._friendPeek }
                 />;
