@@ -17,8 +17,11 @@ module.exports = function (app) {
 
   //add and find friends
   app.route('/api/friend')
-    .post(userController.addFriend)
-    .get(userController.getFriends);
+    .get(userController.getFriends)
+    .post(userController.addFriend);
+
+  app.route('/api/removefriend')
+    .post(userController.removeFriend);
 
   /* Topic Routes */
   app.route('/api/topic')
