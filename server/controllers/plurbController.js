@@ -118,33 +118,39 @@ module.exports = {
   },
 
   getAllFriendsAllPlurbs: function (req, res) {
-    var googId = req.body.user;
-    // var googId = req.session.user;
+    var googId = req.session.user;
     var friendsGoogIds = [];
-//Create array of all friends googIds
 
+    //Create array of all friends googIds
     User.find({where: {googid: googId}})
     .then(function(user) {
       //this built in Sequelize method will pull all friends
       user.getFriends()
        .then(function(friends){
-         console.log('friends: ', friends);
+        friends.forEach(function(friend) {
+          //push each friend googid to the array
+          friendsGoogIds.push(Number(friend.dataValues.googid));
+        });
+       })
+       .then(function(){
+        //find all plurbs that have the friend googIds as UserGoogId (meaning they authored the plurb)
+          Plurb.findAll({
+            where: {
+              $or: [
+                {UserGoogid: friendsGoogIds}
+              ]
+            }
+          })
+            .then(function (plurbs) {
+              res.status(200).json(plurbs);
+            })
+            .catch(function (err) {
+              console.error(err);
+            });
        });
     })
     .catch(function (err) {
       console.error(err);
     });
-
-    // Plurb.findAll({
-    //   where: {
-    //     UserGoogid: friendsGoogIds
-    //   }
-    // })
-    //   .then(function (plurbs) {
-    //     res.status(200).json(plurbs);
-    //   })
-    //   .catch(function (err) {
-    //     console.error(err);
-    //   });
   }
 };
