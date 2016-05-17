@@ -84,27 +84,43 @@ export default class Message extends React.Component {
       if (friends.includes(friend)) {
         topic = "Unfollow";
         image = <Minus 
+                  color={"grey"}
                   onClick={ this._removeFriend.bind(this, this.props.plurb.UserGoogid) } 
                   onMouseLeave={ this._friendPeek } 
                 />;
       } else {
         topic = "Follow";
         image = <Plus
+                  color={"green"}
                   onClick={ this._addFriend.bind(this, this.props.plurb.UserGoogid) }
                   onMouseLeave={ this._friendPeek }
                 />;
       }
     }
+    let el;
+    // determine which element to render
+    if (!this.state.friendMode){
+      
+      el = <ListItem
+            leftAvatar={ image }
+            primaryText={ text }
+            secondaryText={ topic }
+            rightIcon={<Pin onClick={ this._reLoc } />}
+            style={{width: '96%'}}
+          />;
+    } else {
+      el = <ListItem
+            leftCheckbox={ image }
+            primaryText={ text }
+            secondaryText={ topic }
+            rightIcon={<Pin onClick={ this._reLoc } />}
+            style={{width: '96%'}}
+          />;
+    }
     
     return (
       <Paper>
-        <ListItem
-          leftIcon={ image }
-          primaryText={ text }
-          secondaryText={ topic }
-          rightIcon={<Pin onClick={ this._reLoc } />}
-          style={{width: '96%'}}
-        />
+        {el}
       </Paper>
     )
   }
