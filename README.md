@@ -47,9 +47,7 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Tasks <a id="tasks"></a>
@@ -62,6 +60,7 @@ From within the root directory:
 Finally,
 
 ```sh
+npm run test:client
 heroku local
 ```
 
