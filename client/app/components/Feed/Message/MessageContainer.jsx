@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import Message from './Message.jsx';
 import { List } from 'material-ui/List';
 import { connect } from 'react-redux';
-import { loadPlurbs, getPlurbs } from '../../../ACTIONS.jsx';
 
 class MessageContainer extends React.Component {
   constructor(props) {
@@ -22,16 +21,7 @@ class MessageContainer extends React.Component {
         <List>
           { 
             this.props.plurbs.map((plurb) => {
-              // check filter for what type of plurbs to render
-              if (this.props.filter === 'FRIENDS') {
-                // only plurbs from user friends!
-                return <Message key={plurb.id} plurb={ plurb } /> 
-              } else if (this.props.filter === 'TOPICS'){
-                // all plurbs
-                return <Message key={plurb.id} plurb={ plurb } /> 
-              } else {
-                console.log('Error: Unexpected filter state:', this.props.filter);
-              }
+              return <Message key={plurb.id} plurb={ plurb } /> 
             }) 
           }
         </List>
@@ -46,7 +36,6 @@ const mapStateToProps = (store) => {
     plurbs: store.pluribusReducer.plurbs,
     mapBounds: store.pluribusReducer.mapBounds,
     topicId: store.pluribusReducer.currentTopicId,
-    filter: store.pluribusReducer.filter
   };
 };
 
