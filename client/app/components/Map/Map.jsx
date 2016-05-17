@@ -43,7 +43,8 @@ class GoogleMap extends React.Component {
           minLat: +Lats.H.toFixed(2),
           minLng: +Lngs.j.toFixed(2)   
         },
-        topicId: this.props.currentTopicId
+        topicId: this.props.currentTopicId,
+        googId: this.props.currentUserId,
       }
       
       // update bounds on store, then re-fetch plurbs
@@ -64,7 +65,8 @@ const mapStateToProps = (store) => {
   return {
     mapBounds: store.pluribusReducer.mapBounds,
     plurbs: store.pluribusReducer.plurbs,
-    currentTopicId: store.pluribusReducer.currentTopicId
+    currentTopicId: store.pluribusReducer.currentTopicId,
+    currentUserId: store.pluribusReducer.currentUserId,
   };
 };
 
