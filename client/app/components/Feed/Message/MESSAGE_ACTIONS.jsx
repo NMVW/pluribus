@@ -35,11 +35,12 @@ export function getFriends() {
         'Content-Type': 'application/json',
       },
       credentials: 'same-origin',
-    }).then((friendsPlurbs) => {
-      console.log('Store googIds in myFriends', friendsPlurbs)
-      let friends = JSON.parse(friendsPlurbs).map((plurb) => {
-        return plurb.UserGoogid
-      })
+    }).then((res) => res.text()).then((friendsPlurbs) => {
+      // find set of friends from plurbs
+      let friends = Object.keys(JSON.parse(friendsPlurbs).reduce((unique, plurb) => {
+        unique[plurb.UserGoogid] = plurb.UserGoogid
+        return unique;
+      }, {}))
       store.dispatch(loadFriends(friends))
     })
       .catch((error) => {
