@@ -20,7 +20,7 @@ module.exports = function (app) {
     .get(userController.getFriends)
     .post(userController.addFriend);
 
-  app.route('/api/removefriend')
+  app.route('/api/removefriend/:googid')
     .post(userController.removeFriend);
 
   /* Topic Routes */
