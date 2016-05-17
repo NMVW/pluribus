@@ -12,7 +12,7 @@ import Minus from 'material-ui/svg-icons/content/remove-circle';
 // utils
 import { rePosition } from '../../Map/map_utils.jsx';
 import { selectTopic, setTopic } from '../Search/SEARCH_ACTIONS.jsx';
-import { addFriend } from './MESSAGE_ACTIONS.jsx';
+import { addFriend, removeFriend } from './MESSAGE_ACTIONS.jsx';
 
 export default class Message extends React.Component {
   constructor(props) {
@@ -51,8 +51,7 @@ export default class Message extends React.Component {
   }
   
   _removeFriend(friendGoogId) {
-    console.log('remove friendship please');
-    // this.props.dispatch(removeFriend(friendGoogId))
+    this.props.dispatch(removeFriend(friendGoogId))
   }
   
   _selectTopic(chosen) {
