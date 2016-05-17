@@ -15,5 +15,21 @@ export function addFriend(friendGoogId) {
       .catch((error) => {
         console.error(error);
     });
+}
 
+export function getFriends() {
+  // get user's friends
+  fetch('/api/friendsplurbs', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin',
+    }).then((friendsPlurbs) => {
+      console.log('Store googIds in myFriends', friendsPlurbs)
+    })
+      .catch((error) => {
+        console.error(error);
+    });
 }
