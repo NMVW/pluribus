@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Message from './Message.jsx';
 import { List } from 'material-ui/List';
 import { connect } from 'react-redux';
+import { getFriends } from './MESSAGE_ACTIONS.jsx';
 
 class MessageContainer extends React.Component {
   constructor(props) {
@@ -13,6 +14,11 @@ class MessageContainer extends React.Component {
   componentDidUpdate() {
     var node = ReactDOM.findDOMNode(this);
     node.scrollTop = node.scrollHeight;
+  }
+  
+  componentWillMount() {
+    // update friends list (myFriends) before rendering
+    getFriends();
   }
 
   render() {
