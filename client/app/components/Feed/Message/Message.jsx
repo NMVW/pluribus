@@ -66,7 +66,7 @@ export default class Message extends React.Component {
                   src={this.props.plurb.picture}
                 />
                 
-    // enter friend mode to add user            
+    // enter friend mode to add user (implement logic to verify if already friend!)           
     if (this.state.friendMode) {
       text = name;
       topic = "Follow";
