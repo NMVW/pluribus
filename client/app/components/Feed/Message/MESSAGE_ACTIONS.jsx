@@ -37,7 +37,10 @@ export function getFriends() {
       credentials: 'same-origin',
     }).then((friendsPlurbs) => {
       console.log('Store googIds in myFriends', friendsPlurbs)
-      // store.dispatch(loadFriends(mapped googIds))
+      let friends = JSON.parse(friendsPlurbs).map((plurb) => {
+        return plurb.UserGoogid
+      })
+      store.dispatch(loadFriends(friends))
     })
       .catch((error) => {
         console.error(error);
