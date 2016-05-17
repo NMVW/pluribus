@@ -45,19 +45,7 @@ export default class Message extends React.Component {
   }
   
   _addFriend(friendGoogId) {
-    // adding a new friend
-    fetch('/api/friend', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify({friendGoogId}),
-      }).then((res) => console.log(res))
-        .catch((error) => {
-          console.error(error);
-      });
+    this.props.dispatch(addFriend(friendGoogId))
   }
   
   _selectTopic(chosen) {
