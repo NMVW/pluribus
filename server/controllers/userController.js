@@ -54,14 +54,14 @@ module.exports = {
       console.error(err);
     });
   },
-  
+
   getFriends: function (req, res) {
     var googId = req.session.user;
     User.find({where: {googid: googId}})
     .then(function(user){
       user.getFriends()
       .then(function(friends){
-      res.status(200).json(users);  
+      res.status(200).json(friends);  
       });
     })
     .catch(function (err) {
