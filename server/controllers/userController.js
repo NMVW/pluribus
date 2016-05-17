@@ -74,7 +74,10 @@ module.exports = {
     var friendGoogid = req.params.googid;
     User.find({where: {googid: googId}})
     .then(function(user) {
-      user.removeFriend(friendGoogid);
+      user.removeFriend(friendGoogid)
+      .then(function(data) {
+        res.status(200).json(data);
+      });
     })
     .catch(function (err) {
       console.error(err);
