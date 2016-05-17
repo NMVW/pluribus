@@ -33,6 +33,7 @@ module.exports = function (app) {
   app.route('/api/plurb')
     .post(plurbController.createPlurb);
 
+  //this is actually a route that just gets plurbs despite the fact that it is a POST request
   app.route('/api/plurbs')
     .post(plurbController.getPlurbsByLocation);
 
