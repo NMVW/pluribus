@@ -50,6 +50,11 @@ export default class Message extends React.Component {
     this.props.dispatch(addFriend(friendGoogId))
   }
   
+  _removeFriend(friendGoogId) {
+    console.log('remove friendship please');
+    // this.props.dispatch(removeFriend(friendGoogId))
+  }
+  
   _selectTopic(chosen) {
     let mapBounds = this.props.mapBounds;
     
