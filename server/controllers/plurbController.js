@@ -85,42 +85,50 @@ module.exports = {
     var maxLat = req.body.mapBounds.maxLat;
     var minLng = req.body.mapBounds.minLng;
     var maxLng = req.body.mapBounds.maxLng;
-    if(!googId) {
-      googId = undefined;
-    }
-    //if topic id is 0 send back all plurbs in that location regardless of topic
-    if (topicId === 0) {
-      //find all plurbs that fit within the min-max range
-      Plurb.findAll({
+    var query = {};
+  //builds query object based off the presences of googId and/or topicId
+    if(!topicId && !googId) {
+  //if topic id is 0 and there is no googId, send back all plurbs in that location regardless of topic
+      query = {
+        where: {
+          lat: {$between: [minLat, maxLat]},
+          long: {$between: [minLng, maxLng]}
+        }
+      };
+    } else if (!topicId) {
+      query = {
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]},
           UserGoogid: googId
         }
-      })
-      .then(function (plurbs) {
-        res.status(200).json(plurbs);
-      })
-      .catch(function (err) {
-        console.error (err);
-      });
-      //otherwise send back plurbs with that topic and location
+      };
+    } else if (!googId) {
+      query = {
+        where: {
+          lat: {$between: [minLat, maxLat]},
+          long: {$between: [minLng, maxLng]},
+          TopicId: topicId,
+        }
+      };      
     } else {
-      Plurb.findAll({
+      query = {
         where: {
           lat: {$between: [minLat, maxLat]},
           long: {$between: [minLng, maxLng]},
           TopicId: topicId,
           UserGoogid: googId
         }
-      })
-      .then(function (plurbs) {
-        res.status(200).json(plurbs);
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
+      }; 
     }
+
+    Plurb.findAll(query)
+    .then(function (plurbs) {
+      res.status(200).json(plurbs);
+    })
+    .catch(function (err) {
+      console.error (err);
+    });
   },
 
   getAllFriendsAllPlurbs: function (req, res) {
