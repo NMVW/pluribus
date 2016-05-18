@@ -247,6 +247,24 @@ describe('Plurb Controllers', function () {
       expect(plurbController.deletePlurb).to.be.a('function');
     });
   });
+  describe('getPlurbsByGoogId()', function () {
+    it('should be a function', function () {
+      expect(plurbController.getPlurbsByGoogId).to.exist;
+      expect(plurbController.getPlurbsByGoogId).to.be.a('function');
+    });
+  });
+  describe('getPlurbsByLocation()', function () {
+    it('should be a function', function () {
+      expect(plurbController.getPlurbsByLocation).to.exist;
+      expect(plurbController.getPlurbsByLocation).to.be.a('function');
+    });
+  });
+  describe('getAllFriendsAllPlurbs()', function () {
+    it('should be a function', function () {
+      expect(plurbController.getAllFriendsAllPlurbs).to.exist;
+      expect(plurbController.getAllFriendsAllPlurbs).to.be.a('function');
+    });
+  });
 });
 
 describe('API routes GET plurbs', function () {
