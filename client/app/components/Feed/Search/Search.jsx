@@ -165,10 +165,8 @@ class Search extends React.Component {
 
   _removeItem(e) {
     if(this.state.filter === "FRIENDS") {
-      console.log('removeTopic')
       this.props.dispatch(setUser(0, this.props.mapBounds));
     } else {
-      console.log('removeUser')
       this.props.dispatch(setTopic(0, this.props.mapBounds));   
     }
 
