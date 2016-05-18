@@ -47,6 +47,8 @@ module.exports = {
     var friendId = req.body.friendGoogId;
     User.find({where: {googid: googId}})
     .then(function (user) {
+      //uses the built-in Sequelize methods to add a friend to this user
+      //builds the relationship in the UserFriends table
       user.addFriends(friendId);
       res.status(201).json(user);
     })
@@ -59,6 +61,7 @@ module.exports = {
     var googId = req.session.user;
     User.find({where: {googid: googId}})
     .then(function(user){
+      //uses the built-in Sequelize method to get a user's friends from the UserFriends table
       user.getFriends()
       .then(function(friends){
       res.status(200).json(friends);  
@@ -74,6 +77,7 @@ module.exports = {
     var friendGoogid = req.params.googid;
     User.find({where: {googid: googId}})
     .then(function(user) {
+      //uses the built-in Sequelize method to remove one friend
       user.removeFriend(friendGoogid)
       .then(function(data) {
         res.status(200).json(data);

@@ -3,9 +3,9 @@ var mysql = require('mysql');
 var Sequelize = require('sequelize');
 var sequelize = null;
 
-//if environment is heroku
+//if environment is production
 if (process.env.CLEARDB_DATABASE_URL){
-  //initialize db on Heroku
+  //initialize db on production
   sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
   } else {
   //initialize db on localhost
@@ -43,6 +43,7 @@ var Plurb = sequelize.define('Plurb', {
 User.belongsToMany(Topic, {through: 'UserTopic'});
 Topic.belongsToMany(User, {through: 'UserTopic'});
 
+//sets the many:many self-association. Creates a 'UserFriends' table
 User.belongsToMany(User, {as: 'Friends', through: 'UserFriends'});
 
 //add one to many relationship between one user and many plurbs and one topic with many plurbs.
