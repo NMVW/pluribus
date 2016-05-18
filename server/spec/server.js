@@ -237,14 +237,14 @@ describe('Plurb Controllers', function () {
   });
   describe('getPlurb()', function () {
     it('should be a function', function () {
-      expect(userController.createUser).to.exist;
-      expect(userController.createUser).to.be.a('function');
+      expect(plurbController.getPlurb).to.exist;
+      expect(plurbController.getPlurb).to.be.a('function');
     });
   });
   describe('deletePlurb()', function () {
     it('should be a function', function () {
-      expect(userController.createUser).to.exist;
-      expect(userController.createUser).to.be.a('function');
+      expect(plurbController.deletePlurb).to.exist;
+      expect(plurbController.deletePlurb).to.be.a('function');
     });
   });
 });
