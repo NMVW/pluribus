@@ -3,6 +3,7 @@ var Topic = require('../db/dbconfig').Topic;
 module.exports = {
   getAllTopics: function (req, res) {
     Topic.findAll({
+      //this will order topics alphabetically by name
       order: [
         ['name']
       ]
