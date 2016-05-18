@@ -73,7 +73,8 @@ export default class Message extends React.Component {
     let avatarStyle = {border: 'none'};
     if (friends.includes(friend)) {
       listStyle.backgroundColor = "rgba(0,188,212,.2)";
-      avatarStyle.border = "2px solid rgb(0,188,212)";
+      // avatar needs darker border due to color balance
+      avatarStyle.border = "2px solid rgb(0,142,160)";
     }
     let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{this.props.plurb.Topic.name}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
@@ -118,6 +119,7 @@ export default class Message extends React.Component {
             leftAvatar={ image }
             primaryText={ text }
             secondaryText={ topic }
+            secondaryTextLines={1}
             rightIconButton={ location }
             style={listStyle}
           />;
@@ -126,6 +128,7 @@ export default class Message extends React.Component {
             leftCheckbox={ image }
             primaryText={ text }
             secondaryText={ topic }
+            secondaryTextLines={1}
             rightIconButton={ location }
             style={listStyle}
           />;
