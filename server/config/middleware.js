@@ -12,6 +12,7 @@ if (!process.env.NODE_ENV) {
 /* New Grant For Google Authentication */
 var grant = new Grant({
   server: {
+    //the production PROTOCOL is https
     protocol: process.env.PROTOCOL || 'http',
     host: process.env.HOST || 'localhost:3000',
     callback: '/callback',
@@ -43,6 +44,5 @@ module.exports = function (app, express) {
     }
   }));
   app.use(grant);
-  //checks if user it authenticated before sending to index.html
   app.use(express.static(__dirname + '/../../public'));
 };
