@@ -1,7 +1,5 @@
 var express = require('express');
 
-var Plurb = require('./controllers/plurbController');
-
 var app = express();
 
 require('./config/middleware.js')(app, express);
@@ -16,6 +14,13 @@ var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
   console.log('Socket connected!');
+  socket.on('plurb sent', function (){
+    console.log('plurb sent');
+    io.emit('plurb created');
+  });
 });
 
-module.exports = app;
+module.exports = {
+  app: app,
+  io: io
+};
