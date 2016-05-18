@@ -172,10 +172,10 @@ describe('Topic Controllers', function () {
       expect(topicController.getAllTopics).to.be.a('function');
     });
   });
-  describe('createTopic', function () {
+  describe('findOrCreateTopic', function () {
     it('should be a function', function () {
-      expect(topicController.createTopic).to.exist;
-      expect(topicController.createTopic).to.be.a('function');
+      expect(topicController.findOrCreateTopic).to.exist;
+      expect(topicController.findOrCreateTopic).to.be.a('function');
     });
   });
   describe('getTopicByName()', function () {
