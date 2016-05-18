@@ -1,15 +1,15 @@
 var path = require('path');
 var expect = require('chai').expect;
 var request = require('supertest');
-var Sequelize = require("sequelize");
+var Sequelize = require('sequelize');
 var User = require('../db/dbconfig').User;
 var Topic = require('../db/dbconfig').Topic;
 var Plurb = require('../db/dbconfig').Plurb;
 var userController = require('../controllers/userController');
 var topicController = require('../controllers/topicController');
 var plurbController = require('../controllers/plurbController');
-var server = require(path.join(__dirname, '..', './server.js'));
-var app = require('../server');
+var server = require(path.join(__dirname, '..', './server.js')).app;
+var app = require('../server').app;
 
 describe('server', function () {
   'use strict';
@@ -46,22 +46,34 @@ describe('User Controllers', function () {
       expect(userController.getAllUsers).to.be.a('function');
     });
   });
-  describe('createUser()', function () {
-    it('should be a function', function () {
-      expect(userController.createUser).to.exist;
-      expect(userController.createUser).to.be.a('function');
-    });
-  });
   describe('getUser()', function () {
     it('should be a function', function () {
-      expect(userController.createUser).to.exist;
-      expect(userController.createUser).to.be.a('function');
+      expect(userController.getUser).to.exist;
+      expect(userController.getUser).to.be.a('function');
     });
   });
-  describe('deleteUser()', function () {
+  describe('findOrCreateUser()', function () {
     it('should be a function', function () {
-      expect(userController.createUser).to.exist;
-      expect(userController.createUser).to.be.a('function');
+      expect(userController.findOrCreateUser).to.exist;
+      expect(userController.findOrCreateUser).to.be.a('function');
+    });
+  });
+  describe('addFriend()', function () {
+    it('should be a function', function () {
+      expect(userController.addFriend).to.exist;
+      expect(userController.addFriend).to.be.a('function');
+    });
+  });
+  describe('getFriends()', function () {
+    it('should be a function', function () {
+      expect(userController.getFriends).to.exist;
+      expect(userController.getFriends).to.be.a('function');
+    });
+  });
+  describe('removeFriend()', function () {
+    it('should be a function', function () {
+      expect(userController.removeFriend).to.exist;
+      expect(userController.removeFriend).to.be.a('function');
     });
   });
 });
