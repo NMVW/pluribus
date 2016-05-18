@@ -109,30 +109,6 @@ describe('API routes GET users is functioning', function () {
   });
 });
 
-// describe('It should GET all users', function (){
-//     var idCount;
-//     var newUser = {
-//     firstName: 'Jane',
-//     lastName: 'Doe',
-//     email: 'jane@gmail.com',
-//   };
-  
-  //get last id count
-  // before(function (done) {
-  //   request(app)
-  //   .get('/api/user')
-  //   .end(function (res){
-  //     idCount = res.body;
-  //     done();
-  //   });
-  // });
-  //   console.log("idCount: ", idCount);
-  //create new user
-  //get last id count
-  //compare it
-    //should be total+1
-// });
-
 describe('API route POST users', function () {
   var newUser = {
     googid: '556677889900',
