@@ -81,6 +81,7 @@ describe('User Controllers', function () {
 //User Routes
 describe('API routes GET users is functioning', function () {
   var newUser = {
+    googid: '111222333444',
     firstName: 'John',
     lastName: 'Doe',
     email: 'john@gmail.com',
@@ -94,7 +95,7 @@ describe('API routes GET users is functioning', function () {
   });
 
   beforeEach(function (done) {
-    User.create(newUser)
+    User.findOrCreate({where: newUser})
     .then(function () {
       done();
     });
@@ -102,19 +103,19 @@ describe('API routes GET users is functioning', function () {
 
   it('responds with a 200 (OK)', function (done) {
     request(app)
-      .get('api/user')
+      .get('api/users')
       .expect(200);
       done();
   });
 });
 
-describe('It should GET all users', function (){
-    var idCount;
-    var newUser = {
-    firstName: 'Jane',
-    lastName: 'Doe',
-    email: 'jane@gmail.com',
-  };
+// describe('It should GET all users', function (){
+//     var idCount;
+//     var newUser = {
+//     firstName: 'Jane',
+//     lastName: 'Doe',
+//     email: 'jane@gmail.com',
+//   };
   
   //get last id count
   // before(function (done) {
@@ -130,10 +131,11 @@ describe('It should GET all users', function (){
   //get last id count
   //compare it
     //should be total+1
-});
+// });
 
 describe('API route POST users', function () {
   var newUser = {
+    googid: '556677889900',
     firstName: 'Post',
     lastName: 'Tester',
     email: 'pt@gmail.com',
@@ -147,7 +149,7 @@ describe('API route POST users', function () {
   });
 
   beforeEach(function (done) {
-    User.create(newUser)
+    User.findOrCreate({where: newUser})
     .then(function () {
       done();
     });
