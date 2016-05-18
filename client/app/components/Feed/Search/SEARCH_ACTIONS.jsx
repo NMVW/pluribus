@@ -26,7 +26,6 @@ export function selectTopic(currentTopic, mapBounds) {
     let topicObj = JSON.parse(topicJSON)[0];
     let topicId = topicObj.id;
     store.dispatch({ type: SELECT_TOPIC, topicId });
-    console.log('selectTopic');
     store.dispatch(getPlurbs({ topicId, mapBounds }));
   }).catch((error) => {
     console.error("This is an Error in selectTopic ACTION", error);
@@ -62,7 +61,6 @@ export function loadTopics(topics) {
 }
 
 export function setUser(googId, mapBounds) {
-  console.log('setUser');
   store.dispatch(getPlurbs({ topicId: null, mapBounds, googId }));
   return { type: SELECT_USER, currentTopicId: null, googId };
 }

@@ -35,7 +35,6 @@ export function createPlurb(plurb, mapBounds) {
     credentials: 'same-origin',
     body: JSON.stringify(plurb),
   }).then((body) => {
-    console.log('make Plurbs');
     store.dispatch(getPlurbs({topicId:plurb.topicId, mapBounds}));
   }).catch((error) => {
     console.error(error);
@@ -60,7 +59,6 @@ export function getPlurbs(options) {
       body: JSON.stringify(options),
     }).then((plurbs) => plurbs.text())
       .then((plurbs) => {
-        console.log("plurbs", plurbs.length, options);
       store.dispatch(loadPlurbs(plurbs));
     }).catch((error) => {
       console.error(error);
