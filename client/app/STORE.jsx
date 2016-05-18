@@ -20,6 +20,7 @@ const initialState = {
   allUsers: [],
   myUsers: [],
   fetching: false,
+  topicName: '',
 }
 
 const store = createStore(pluribusApp, { pluribusReducer: initialState }, compose(

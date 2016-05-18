@@ -81,6 +81,7 @@ class Search extends React.Component {
         helperText: "Start typing to search Topics!",
         filtered: [],
         toolTip: "Remove Topic",
+        currentItem: newProps.topicName,
       });
     }
 
@@ -91,7 +92,7 @@ class Search extends React.Component {
     let mapBounds = this.props.mapBounds;
 
     // Function that checks the DB for the topic name
-    selectTopic(selected, mapBounds);
+    selectTopic(selected, mapBounds, selected);
 
     // Closes the dropdown
     this._handleRequestClose();
@@ -227,6 +228,7 @@ const mapStateToProps = (store) => {
     filter: store.pluribusReducer.filter,
     allUsers: store.pluribusReducer.allUsers,
     currentUserId: store.pluribusReducer.currentUserId,
+    topicName: store.pluribusReducer.topicName,
   };
 };
 

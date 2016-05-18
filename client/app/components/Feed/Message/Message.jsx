@@ -54,14 +54,13 @@ export default class Message extends React.Component {
     this.props.dispatch(removeFriend(friendGoogId))
   }
   
-  _selectTopic(chosen) {
+  _selectTopic(topicId, topicName) {
     let mapBounds = this.props.mapBounds;
     
     // Include filter awareness to choose topic/user
     
     // update the search + store
-    selectTopic(chosen, mapBounds);
-    this.props.dispatch(setTopic(chosen, mapBounds));
+    this.props.dispatch(setTopic(topicId, mapBounds, topicName));
   }
   
   render() {
@@ -76,7 +75,7 @@ export default class Message extends React.Component {
       // avatar needs darker border due to color balance
       avatarStyle.border = "2px solid rgb(0,142,160)";
     }
-    let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId) }>{this.props.plurb.Topic.name}</p>
+    let topic = <p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId, this.props.plurb.Topic.name) }>{this.props.plurb.Topic.name}</p>
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
                   size={50}

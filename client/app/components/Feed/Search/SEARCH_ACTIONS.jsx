@@ -25,16 +25,17 @@ export function selectTopic(currentTopic, mapBounds) {
     store.dispatch(getTopics());
     let topicObj = JSON.parse(topicJSON)[0];
     let topicId = topicObj.id;
-    store.dispatch({ type: SELECT_TOPIC, topicId });
+    let topicName = topicObj.name;
+    store.dispatch({ type: SELECT_TOPIC, topicId, topicName });
     store.dispatch(getPlurbs({ topicId, mapBounds }));
   }).catch((error) => {
     console.error("This is an Error in selectTopic ACTION", error);
   });
 }
 
-export function setTopic (topicId, mapBounds) {
+export function setTopic (topicId, mapBounds, topicName) {
   store.dispatch(getPlurbs({ topicId, mapBounds }));
-  return { type: SELECT_TOPIC, topicId };
+  return { type: SELECT_TOPIC, topicId, topicName };
 }
 
 export function getTopics() {

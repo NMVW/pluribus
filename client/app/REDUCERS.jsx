@@ -24,6 +24,7 @@ const initialState = {
   allUsers: [],
   myUsers: [],
   fetching: false,
+  topicName: '',
 }
 
 // COMBINED REDUCER -> yield Store
@@ -43,7 +44,8 @@ function pluribusReducer(state = initialState, action) {
       })
     case SELECT_TOPIC:
       return Object.assign({}, state, {
-        currentTopicId: action.topicId
+        currentTopicId: action.topicId,
+        topicName: action.topicName,
       })
     case UPDATE_MAP_BOUNDS:
       return Object.assign({}, state, {

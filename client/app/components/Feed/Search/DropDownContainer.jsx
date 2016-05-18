@@ -23,7 +23,7 @@ export default class DropDownContainer extends React.Component {
         >
             <List>
               {
-                this.props.filtered.map(function(item) {
+                this.props.filtered.map((item) => {
                   let key = item.id;
                   let onClick = this.props.selectTopic.bind(this, item);
                   if(this.props.filter === "FRIENDS") {
