@@ -12,7 +12,7 @@ if (!process.env.NODE_ENV) {
 /* New Grant For Google Authentication */
 var grant = new Grant({
   server: {
-    protocol: 'http',
+    protocol: process.env.PROTOCOL || 'http',
     host: process.env.HOST || 'localhost:3000',
     callback: '/callback',
     transport: 'session',
