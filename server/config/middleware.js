@@ -39,7 +39,7 @@ module.exports = function (app, express) {
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 864000000
+      maxAge: 864000
     }
   }));
   app.use(grant);
