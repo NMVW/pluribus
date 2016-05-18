@@ -34,7 +34,6 @@ export function selectTopic(currentTopic, mapBounds) {
 }
 
 export function setTopic (topicId, mapBounds) {
-  console.log('SetTopic');
   store.dispatch(getPlurbs({ topicId, mapBounds }));
   return { type: SELECT_TOPIC, topicId };
 }
@@ -64,8 +63,8 @@ export function loadTopics(topics) {
 
 export function setUser(googId, mapBounds) {
   console.log('setUser');
-  store.dispatch(getPlurbs({ null, mapBounds, googId }));
-  return { type: SELECT_USER, googId };
+  store.dispatch(getPlurbs({ topicId: null, mapBounds, googId }));
+  return { type: SELECT_USER, currentTopicId: null, googId };
 }
 
 export function getUsers() {

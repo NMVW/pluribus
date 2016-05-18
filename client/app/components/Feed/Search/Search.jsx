@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // ACTIONS
-import { getTopics, selectTopic, setTopic, getUsers, setUser } from './SEARCH_ACTIONS.jsx';
+import { getTopics, selectTopic, setTopic, getUsers, setUser, SELECT_TOPIC, SELECT_USER } from './SEARCH_ACTIONS.jsx';
 import { getPlurbs } from '../../../ACTIONS.jsx';
 
 // MATERIAL COMPONENTS
@@ -23,6 +23,7 @@ class Search extends React.Component {
     super(props);
     this.state = {
       helperText: "Start typing to search Topics!",
+      toolTip: "Remove Topic",
       filter: this.props.filter,
       filtered: [],
       data: [],
@@ -41,17 +42,24 @@ class Search extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
+    // When the filter is toggled 
     if (this.state.filter !== newProps.filter) {
-      let topicId = this.props.topicId;
-      let googId = this.props.googId;
-      let mapBounds = this.props.mapBounds;
-      this._removeItem();
-      if(newProps.filter === "TOPICS") {
-        console.log('CWRP');
-        this.props.dispatch(setTopic(0, this.props.mapBounds));
+      if(newProps.filter === 'FRIENDS') {
+        if(this.props.currentTopicId) {
+          this.props.dispatch({ type: SELECT_TOPIC, topicId: null })
+        }
+        this.setState({
+          currentItem: '',
+        });
+        this.props.dispatch(setUser(0, this.props.mapBounds));
       } else {
-        console.log('CWRP');
-        this.props.dispatch(setUser(0, this.props.mapBounds));     
+        if(this.props.currentUserId) {
+          this.props.dispatch({ type: SELECT_USER, googId: 0 })
+        }
+        this.setState({
+          currentItem: '',
+        });
+        this.props.dispatch(setTopic(0, this.props.mapBounds));
       }
     }
 
@@ -62,6 +70,7 @@ class Search extends React.Component {
         data: newProps.allUsers,
         helperText: "Start typing to search Users!",
         filtered: [],
+        toolTip: "Remove User",
       });
     }
 
@@ -71,6 +80,7 @@ class Search extends React.Component {
         data: newProps.allTopics,
         helperText: "Start typing to search Topics!",
         filtered: [],
+        toolTip: "Remove Topic",
       });
     }
 
@@ -168,9 +178,9 @@ class Search extends React.Component {
   }
   
   render() {
-    let element;      
+    let element;
     let topic = this.state.currentItem;
-    let icon = (<IconButton tooltip="Remove Topic" tooltipPosition="top-center" onTouchTap={this._removeItem}>
+    let icon = (<IconButton tooltip={this.state.toolTip} tooltipPosition="top-center" onTouchTap={this._removeItem}>
                 <Close />
               </IconButton>);
     if (this.props.currentTopicId || this.props.currentUserId) {
