@@ -130,7 +130,7 @@ export default class Message extends React.Component {
     let remove = <Delete
                   color={"rgba(246, 81, 81, 1)"}
                   onClick={ this._delete }
-                  onMouseLeave={ this._friendPeek }
+                  onMouseLeave={ this._deleteMode }
                />
              
     // enter friend mode to add user (implement logic to verify if already friend!)           
