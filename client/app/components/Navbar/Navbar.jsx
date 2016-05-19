@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from '../../ACTIONS.jsx';
+import { whoAmI } from './nav_utils.jsx';
 
 // material-ui components
 import Navbar from 'material-ui/AppBar';
@@ -8,6 +9,7 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import PersonOutline from 'material-ui/svg-icons/social/person-outline';
 import Person from 'material-ui/svg-icons/social/person';
+import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import ClosedMenuIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import OpenMenuIcon from 'material-ui/svg-icons/navigation/expand-more';
@@ -29,9 +31,11 @@ class NavBar extends React.Component {
   }
   
   _verifyUser() {
-    let auth = window.location.search.match(/true/);
+    // TODO: replace URL manipulation w/ whoAmI() verification
+    whoAmI();
     
-    // naive check for user authentication
+    // TO BE REPLACED by whoAmI()
+    let auth = window.location.search.match(/true/);
     if (auth) {
       this.props.dispatch(authenticate(true));
     }
