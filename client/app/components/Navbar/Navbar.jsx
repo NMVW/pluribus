@@ -52,6 +52,10 @@ class NavBar extends React.Component {
   
   render() {
     let activeElement;
+    let greeting = "Welcome, outsider.";
+    if (this.props.clientName) {
+      greeting = "Hello, " + this.props.clientName;
+    }
     
     // check authentication for render
     if (this.props.authenticated) {
@@ -64,6 +68,7 @@ class NavBar extends React.Component {
       <Navbar 
         title="Pluribus"
         iconElementLeft={activeElement}
+        iconElementRight={<FlatButton label={greeting} />}
       />
     </MuiThemeProvider>
   }
