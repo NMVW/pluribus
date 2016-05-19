@@ -27,7 +27,7 @@ module.exports = function (app) {
 
   //returns the GoogId of the user
   app.route('/api/whoami')
-    .get(utils.getUserGoogId);
+    .get(utils.getClientSelf);
 
   /* Topic Routes */
   app.route('/api/topic')
