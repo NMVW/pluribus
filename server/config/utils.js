@@ -6,5 +6,9 @@ module.exports = {
     } else {
       res.redirect('/');
     }
+  },
+
+  getUserGoogId: function (req, res){
+    res.status(200).send(req.session.user);
   }
 };

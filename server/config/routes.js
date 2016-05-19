@@ -2,6 +2,7 @@ var userController = require('../controllers/userController');
 var topicController = require('../controllers/topicController');
 var plurbController = require('../controllers/plurbController');
 var Purest = require('purest');
+var utils = require('./utils');
 var checkAuth = require('./utils').checkAuthentication;
 
 var google = new Purest({ provider: 'google' });
@@ -23,6 +24,10 @@ module.exports = function (app) {
 
   app.route('/api/removefriend/:googid')
     .post(checkAuth, userController.removeFriend);
+
+  //returns the GoogId of the user
+  app.route('/api/whoami')
+    .get(utils.getUserGoogId);
 
   /* Topic Routes */
   app.route('/api/topic')
