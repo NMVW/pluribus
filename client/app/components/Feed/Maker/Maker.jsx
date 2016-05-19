@@ -36,6 +36,7 @@ export default class Maker extends React.Component {
   _checkPlurb(e) {
     if(e.key === 'Enter') {
       if(!this.state.error) {
+        e.preventDefault();
         this._sendPlurb(e)  
       } else {
         e.preventDefault();

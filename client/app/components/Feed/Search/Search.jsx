@@ -194,6 +194,8 @@ class Search extends React.Component {
     let style = {
       display: this.state.filtered.length ? "none" : "inline",
     }
+    let otherText = this.state.filter === 'FRIENDS' ? "" : "Enter to create topic";
+
     if (this.props.currentTopicId || this.props.currentUserId) {
       element = (
       <Paper style={{'backgroundColor': '#F65151', 'marginTop':'10px', 'display': 'inline-block'}}>
@@ -209,7 +211,7 @@ class Search extends React.Component {
         onKeyDown={ this._check }
         value= { this.state.currentItem }
         inputStyle={{ color : 'white' }}
-        floatingLabelText={<p style={style}>Enter to create topic</p>}
+        floatingLabelText={<p style={style}>{otherText}</p>}
         floatingLabelFixed={true}
         style={{height: "67px"}}
       />);
