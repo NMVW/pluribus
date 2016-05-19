@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadPlurbs, getPlurbs, setFilter } from '../../../ACTIONS.jsx';
+import { getPlurbs, setFilter } from '../../../ACTIONS.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -15,12 +15,18 @@ class Filter extends React.Component {
   constructor(props) {
     super(props);
     this._handleSwitch = this._handleSwitch.bind(this);
+    this.state = {
+      filter: "TOPICS"
+    };
   }
   
-  _handleSwitch() {
-    // this.props.dispatch(loadPlurbs());
-    let filt = this.props.filter === 'TOPICS' ? 'FRIENDS' : 'TOPICS';
+  _handleSwitch(e) {
+    let filt = e.props.value;
+    this.setState({
+      filter: filt
+    });
     this.props.dispatch(setFilter(filt));
+    this.props.dispatch(getPlurbs({mapBounds: this.props.mapBounds, filter: filt}))
   }
   
   render() {
@@ -28,10 +34,9 @@ class Filter extends React.Component {
       <Tabs 
         value={ this.props.filter }
         inkBarStyle={{ backgroundColor:'#F65151' }}
-
       >
-        <Tab value="TOPICS" icon={<Topics />} onClick={ this._handleSwitch } />
-        <Tab value="FRIENDS" icon={<Friends />} onClick={ this._handleSwitch } />
+        <Tab value="TOPICS" icon={<Topics />} onActive={ this._handleSwitch } />
+        <Tab value="FRIENDS" icon={<Friends />} onActive={ this._handleSwitch } />
       </Tabs>
     </MuiThemeProvider>
   }
@@ -41,6 +46,10 @@ class Filter extends React.Component {
 const mapStateToProps = (store) => {
   return {
     filter: store.pluribusReducer.filter,
+    plurbs: store.pluribusReducer.plurbs,
+    mapBounds: store.pluribusReducer.mapBounds,
+    currentTopicId: store.pluribusReducer.currentTopicId,
+    currentUserId: store.pluribusReducer.currentUserId
   };
 };
 

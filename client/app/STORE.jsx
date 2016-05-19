@@ -4,8 +4,8 @@ import pluribusApp from './REDUCERS.jsx'
 
 const initialState = {
   authenticated: false,
-  currentTopicId: 0,
-  currentUserId: null,
+  currentTopicId: undefined,
+  currentUserId: undefined,
   mapBounds: {
     maxLat:38.87,
     maxLng:-76.95,

@@ -8,8 +8,8 @@ import { FETCHING, SET_FILTER, CREATE_PLURB, LOAD_PLURBS, GET_PLURBS, UPDATE_MAP
 
 const initialState = {
   authenticated: false,
-  currentTopicId: 0,
-  currentUserId: null,
+  currentTopicId: undefined,
+  currentUserId: undefined,
   mapBounds: {
     maxLat:38.87,
     maxLng:-76.95,

@@ -1,6 +1,6 @@
 // import selectSomething() from search component
 import store from '../../../STORE.jsx';
-
+import { loadPlurbs, GET_PLURBS } from '../../../ACTIONS.jsx';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const LOAD_FRIENDS = 'LOAD_FRIENDS';
@@ -45,23 +45,43 @@ export function addFriend(friendGoogId) {
   return { type: ADD_FRIEND, fetching:true }
 }
 
+export function getFriendsPlurbs(mapBounds) {
+  // get user's friends' plurbs
+  fetch('/api/friendsplurbs', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(mapBounds),
+      credentials: 'same-origin',
+    }).then((res) => res.text()).then((friendsPlurbs) => {
+      if (friendsPlurbs) {
+        // load up user's friends' plurbs
+        store.dispatch(loadPlurbs(friendsPlurbs))
+      } else {
+        // no friends :(
+        store.dispatch(loadPlurbs([]))
+      }
+    })
+      .catch((error) => {
+        console.error(error);
+    });
+  return { type: GET_PLURBS, fetching: true }
+}
+
 export function getFriends() {
   // get user's friends
-  fetch('/api/friendsplurbs', {
+  fetch('/api/friend', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       credentials: 'same-origin',
-    }).then((res) => res.text()).then((friendsPlurbs) => {
-      if (friendsPlurbs) {
-        // find set of friends from plurbs
-        let friends = Object.keys(JSON.parse(friendsPlurbs).reduce((unique, plurb) => {
-          unique[plurb.UserGoogid] = plurb.UserGoogid
-          return unique;
-        }, {}))
-        store.dispatch(loadFriends(friends))
+    }).then((res) => res.text()).then((friends) => {
+      if (friends) {
+        store.dispatch(loadFriends(JSON.parse(friends).map((friend) => friend.googid)))
       } else {
         // no friends :(
         store.dispatch(loadFriends([]))

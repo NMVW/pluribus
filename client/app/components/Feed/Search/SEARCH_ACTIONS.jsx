@@ -9,7 +9,7 @@ export const SELECT_USER = 'SELECT_USER';
 export const GET_USERS = 'GET_USERS';
 export const LOAD_USERS = 'LOAD_USERS';
 
-export function selectTopic(currentTopic, mapBounds) {
+export function selectTopic(currentTopic, mapBounds, filter) {
   fetch('/api/topic', {
     method: 'POST',
     headers: {
@@ -27,14 +27,14 @@ export function selectTopic(currentTopic, mapBounds) {
     let topicId = topicObj.id;
     let topicName = topicObj.name;
     store.dispatch({ type: SELECT_TOPIC, topicId, topicName });
-    store.dispatch(getPlurbs({ topicId, mapBounds }));
+    store.dispatch(getPlurbs({ topicId, mapBounds, filter }));
   }).catch((error) => {
     console.error("This is an Error in selectTopic ACTION", error);
   });
 }
 
-export function setTopic (topicId, mapBounds, topicName) {
-  store.dispatch(getPlurbs({ topicId, mapBounds }));
+export function setTopic (topicId, mapBounds, topicName, filter) {
+  store.dispatch(getPlurbs({ topicId, mapBounds, filter }));
   return { type: SELECT_TOPIC, topicId, topicName };
 }
 
@@ -56,14 +56,13 @@ export function getTopics() {
   return { type: GET_TOPICS, fetching: true };
 }
 
-
 export function loadTopics(topics) {
   return { type: LOAD_TOPICS, fetching: false, topics };
 }
 
-export function setUser(googId, mapBounds) {
-  store.dispatch(getPlurbs({ topicId: null, mapBounds, googId }));
-  return { type: SELECT_USER, currentTopicId: null, googId };
+export function setUser(googId, mapBounds, filter) {
+  store.dispatch(getPlurbs({ topicId: undefined, mapBounds, googId, filter }));
+  return { type: SELECT_USER, currentTopicId: undefined, googId };
 }
 
 export function getUsers() {

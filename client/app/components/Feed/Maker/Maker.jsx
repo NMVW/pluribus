@@ -45,7 +45,7 @@ export default class Maker extends React.Component {
         lat: this.state.lat,
         long: this.state.long,
         topicId: this.props.currentTopicId,
-      }, this.props.mapBounds
+      }, this.props.mapBounds, this.props.filter
     ));
 
     // clear the text field
@@ -63,15 +63,17 @@ export default class Maker extends React.Component {
   render() {
     let auth = this.props.authenticated;
     let topic = this.props.currentTopicId;
+    let filter = this.props.filter;
     let hintText = !auth ? "Sign In (upper left-hand corner) to contribute!" :
-                   !topic ? "Select a topic (up top) to contribute!" : "Start typing your message!";
+                   !topic && filter === 'TOPICS' ? "Select a topic (up top) to contribute!" :
+                   filter === 'FRIENDS' ? "Switch to global scene to contribute": "Start typing your message!";
     let color = !auth || !topic ? {color:"grey"} : {color:"white"};
     return (
       <MakerBar
         iconElementLeft={
           <ActionButton
             backgroundColor={"rgba(246, 81, 81, 1)"}
-            disabled={ !auth || !topic }
+            disabled={ !auth || !topic || filter === 'FRIENDS'}
             children={<Plus />} 
             onClick={ this._sendPlurb }
           />
@@ -79,12 +81,13 @@ export default class Maker extends React.Component {
         title={
           <TextField
             fullWidth={true}
-            disabled={ !auth || !topic }
+            disabled={ !auth || !topic || filter === 'FRIENDS'}
             hintText={ hintText }
             hintStyle={ color }
             onChange={ this._updateMessage }
             onKeyDown={ this._checkPlurb }
             value={ this.state.text }
+            inputStyle={{ color : 'white' }}
           />
         }
       />
@@ -98,7 +101,8 @@ const mapStateToProps = (store) => {
     plurbs: store.pluribusReducer.currentPlurb,
     currentTopicId: store.pluribusReducer.currentTopicId,
     mapBounds: store.pluribusReducer.mapBounds,
-    authenticated: store.pluribusReducer.authenticated
+    authenticated: store.pluribusReducer.authenticated,
+    filter: store.pluribusReducer.filter
   };
 };
 
