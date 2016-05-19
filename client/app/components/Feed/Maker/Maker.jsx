@@ -13,6 +13,8 @@ export default class Maker extends React.Component {
       text: '',
       lat: 0,
       long: 0,
+      charCount: 160,
+      error: false,
     };
     
     // get location on first creation
@@ -33,7 +35,11 @@ export default class Maker extends React.Component {
 
   _checkPlurb(e) {
     if(e.key === 'Enter') {
-      this._sendPlurb(e)  
+      if(!this.state.error) {
+        this._sendPlurb(e)  
+      } else {
+        e.preventDefault();
+      }
     }
   }
 
@@ -68,7 +74,11 @@ export default class Maker extends React.Component {
 
   _updateMessage(e) {
     this.setState(
-      { text: e.target.value }
+      {
+        text: e.target.value,
+        charCount: 160 - e.target.value.length,
+        error: (160 - e.target.value.length) < 0,
+      }
     );
   }
 
@@ -79,13 +89,21 @@ export default class Maker extends React.Component {
     let hintText = !auth ? "Sign In (upper left-hand corner) to contribute!" :
                    !topic && filter === 'TOPICS' ? "Select a topic (up top) to contribute!" :
                    filter === 'FRIENDS' ? "Switch to global scene to contribute": "Start typing your message!";
+    let error = this.state.error;
     let color = !auth || !topic ? {color:"grey"} : {color:"white"};
+    let style = {
+      color: this.state.charCount < 25 ? "rgba(246, 81, 81, 1)" : "Grey",
+    }
+    let floatStyle = {
+      color: "Grey", 
+      fontWeight: "lighter",
+    }
     return (
       <MakerBar
         iconElementLeft={
           <ActionButton
             backgroundColor={"rgba(246, 81, 81, 1)"}
-            disabled={ !auth || !topic || filter === 'FRIENDS'}
+            disabled={ !auth || !topic || filter === 'FRIENDS' || error }
             children={<Plus />} 
             onClick={ this._sendPlurb }
           />
@@ -93,6 +111,8 @@ export default class Maker extends React.Component {
         title={
           <TextField
             fullWidth={true}
+            multiLine={true}
+            rows={1}
             disabled={ !auth || !topic || filter === 'FRIENDS'}
             hintText={ hintText }
             hintStyle={ color }
@@ -100,6 +120,8 @@ export default class Maker extends React.Component {
             onKeyDown={ this._checkPlurb }
             value={ this.state.text }
             inputStyle={{ color : 'white' }}
+            floatingLabelText= { <p style={floatStyle}>Remaining Characters: <span style={style}>{this.state.charCount}</span></p> }
+            floatingLabelFixed={ true }
           />
         }
       />
