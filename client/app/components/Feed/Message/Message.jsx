@@ -31,6 +31,7 @@ export default class Message extends React.Component {
     this._selectTopic = this._selectTopic.bind(this);
     this._selectUser = this._selectUser.bind(this);
     this._delete = this._delete.bind(this);
+    this._deleteMode = this._deleteMode.bind(this);
   }
   
   _reLoc() {
@@ -51,11 +52,13 @@ export default class Message extends React.Component {
       this.setState({
         friendMode: true
       });
-    } else {
-      this.setState({
-        owner: !this.state.owner
-      });
     }
+  }
+  
+  _deleteMode() {
+    this.setState({
+      owner: !this.state.owner
+    });
   }
   
   _addFriend(friendGoogId) {
@@ -86,7 +89,6 @@ export default class Message extends React.Component {
   }
   
   _delete() {
-    console.log('delete plurb');
     deletePlurb(this.props.plurb.id);
   }
   
@@ -116,6 +118,7 @@ export default class Message extends React.Component {
     let image = <Avatar
                   size={50}
                   style={avatarStyle}
+                  onClick={ this._deleteMode }
                   onMouseEnter={ this._friendPeek }
                   src={this.props.plurb.picture}
                 />
