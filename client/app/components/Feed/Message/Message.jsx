@@ -36,12 +36,15 @@ export default class Message extends React.Component {
   }
   
   _friendPeek() {
+    let creator = this.props.plurb.UserGoogid;
+    let self = this.props.clientID;
+    
     // toggle state
     if (this.state.friendMode) {
       this.setState({
         friendMode: false
       });
-    } else {
+    } else if (creator !== self) {
       this.setState({
         friendMode: true
       });
@@ -165,6 +168,7 @@ export default class Message extends React.Component {
 // map the portion of the state tree desired
 const mapStateToProps = (store) => {
   return {
+    clientID: store.pluribusReducer.clientID,
     mapBounds: store.pluribusReducer.mapBounds,
     currentTopicId: store.pluribusReducer.currentTopicId,
     myFriends: store.pluribusReducer.myFriends,
