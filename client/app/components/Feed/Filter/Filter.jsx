@@ -18,6 +18,14 @@ class Filter extends React.Component {
     this.state = {
       filter: "TOPICS"
     };
+    
+    // build socket listener into component for plurb updates
+    socket.on('plurb created', () => {
+      let topicId = this.props.currentTopicId;
+      let mapBounds = this.props.mapBounds;
+      let filter = this.props.filter;
+      getPlurbs({topicId, mapBounds, filter});
+    });
   }
   
   _handleSwitch(e) {
