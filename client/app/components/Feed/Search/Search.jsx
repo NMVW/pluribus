@@ -135,7 +135,7 @@ class Search extends React.Component {
   
   _textSearch(e) {
     let state = this.props.filter;
-    let text = e.target.value;
+    let text = e.target.value.toUpperCase();
     let data = this.state.data;
 
     // Only try to filter if there are topics
@@ -143,12 +143,12 @@ class Search extends React.Component {
       this.setState({
         filtered: data.filter((item) => {
           if (state === "FRIENDS") {
-            name = item.firstName +" "+ item.lastName;
+            name = (item.firstName +" "+ item.lastName).toUpperCase();
           } else {
             name = item.name;
           }
 
-          return name.includes(text); 
+          return name.toUpperCase().includes(text); 
         }),
       });
     }
