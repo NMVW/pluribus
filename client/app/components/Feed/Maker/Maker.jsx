@@ -37,13 +37,25 @@ export default class Maker extends React.Component {
     }
   }
 
+  _offsetLocation(numb) {
+    let rand = function() {
+      return Math.floor(Math.random() * 10);
+    }
+    let num =  parseFloat(''+Math.round((numb + 0.00001) * 100) / 100 +rand());
+
+    return num;
+  }
+
   _sendPlurb(e) {
-    var context = this;
+    let context = this;
+    let lat = this._offsetLocation(this.state.lat);
+    let long = this._offsetLocation(this.state.long);
+
     this.props.dispatch(createPlurb(
       {
         text: this.state.text,
-        lat: this.state.lat,
-        long: this.state.long,
+        lat: lat,
+        long: long,
         topicId: this.props.currentTopicId,
       }, this.props.mapBounds, this.props.filter
     ));

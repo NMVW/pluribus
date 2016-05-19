@@ -32,8 +32,8 @@ var Topic = sequelize.define('Topic', {
 
 var Plurb = sequelize.define('Plurb', {
   text: Sequelize.STRING,
-  lat: Sequelize.DECIMAL(5,2),
-  long: Sequelize.DECIMAL(5,2),
+  lat: Sequelize.DECIMAL(6,3),
+  long: Sequelize.DECIMAL(6,3),
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   picture: Sequelize.STRING
