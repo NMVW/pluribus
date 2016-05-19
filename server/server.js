@@ -18,6 +18,10 @@ io.on('connection', function (socket) {
     console.log('plurb sent');
     io.emit('plurb created');
   });
+  socket.on('plurb removed', function() {
+    console.log('plurb removed');
+    io.emit('plurb destroyed');
+  });
 });
 
 module.exports = {
