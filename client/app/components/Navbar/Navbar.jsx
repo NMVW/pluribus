@@ -4,8 +4,10 @@ import { authenticate } from '../../ACTIONS.jsx';
 
 // material-ui components
 import Navbar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
+import PersonOutline from 'material-ui/svg-icons/social/person-outline';
+import Person from 'material-ui/svg-icons/social/person';
 import { List, ListItem } from 'material-ui/List';
 import ClosedMenuIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import OpenMenuIcon from 'material-ui/svg-icons/navigation/expand-more';
@@ -18,12 +20,12 @@ class NavBar extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = {
-      open: false
-    };
+    this._handleTouchTap = this._handleTouchTap.bind(this);
+  }
+  
+  componentWillMount() {
     // each render, check URL for authentication
     this._verifyUser();
-    this._handleTouchTap = this._handleTouchTap.bind(this);
   }
   
   _verifyUser() {
@@ -36,19 +38,12 @@ class NavBar extends React.Component {
   }
   
   _handleTouchTap(event) {
-    // no page refresh, please
-    event.preventDefault();
-    
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget
-    });
-  }
-  
-  _handleClose() {
-    this.setState({
-      open: false
-    });
+    if (this.props.authenticated) {
+      window.location.pathname = "/logout";
+      this.props.dispatch(authenticate(false));
+    } else {
+      window.location.pathname = "/connect/google";
+    }
   }
   
   render() {
@@ -56,33 +51,16 @@ class NavBar extends React.Component {
     
     // check authentication for render
     if (this.props.authenticated) {
-      activeElement = <ListItem 
-        primaryText="Sign Out" 
-        onClick={(e) => {window.location.pathname = "/logout"}}  
-      /> 
+      activeElement = <IconButton style={{backgroundColor:"rgb(246, 81, 81)", borderRadius:"30px"}} onClick={this._handleTouchTap} tooltip={"sign out"}><Person /></IconButton> 
     } else {
-      activeElement = <ListItem 
-        primaryText="Sign In" 
-        onClick={(e) => {window.location.pathname = "/connect/google"}}  
-      /> 
+      activeElement = <IconButton style={{backgroundColor:"rgb(246, 81, 81)", borderRadius:"30px"}} onClick={this._handleTouchTap} tooltip={"sign in"}><PersonOutline /></IconButton> 
     }
     
     return <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Navbar 
-      title="Pluribus"
-      iconElementLeft={<IconButton onClick={this._handleTouchTap}><OpenMenuIcon color="white" /></IconButton>}
-    >
-      <Popover 
-        open={this.state.open}
-        anchorEl={this.state.anchorEl}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-        animation={PopoverAnimationVertical}
-        useLayerForClickAway={false}
-      >
-        <List children={activeElement} />
-      </Popover>
-    </Navbar>
+      <Navbar 
+        title="Pluribus"
+        iconElementLeft={activeElement}
+      />
     </MuiThemeProvider>
   }
 }
