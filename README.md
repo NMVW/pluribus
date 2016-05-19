@@ -1,6 +1,6 @@
-# pluribus
+# [Pluribus](https://pluribus-app.herokouapp.com)
 
-> MERN stack, localized Twitter client
+A socal media platform built with the MERN stack: MySQL, Express, React/Redux, Node
 
 ## Team
 
@@ -15,30 +15,26 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Tasks](#tasks)
+    1. [Launching App](#launching-app)
 1. [Team](#team)
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
 ## Usage <a id="usage"></a>
 
-> Google Maps API allows us to channel Twitter data into a pleasant local UX
-> [Passport](http://passportjs.org/) was integrated to satisfy client authentication standards.
+[Pluribus](https://pluribus-app.herokouapp.com) was developed to empower citizens to engage in local community issues. This is accomplished by providing users with a map-driven social media platform.
 
 ## Requirements <a id="requirements"></a>
 
-- Node 4.4.3
-- React
-- Redux
-- Passport ^0.3.2
-- Sequelize
-- MySQL
+ Make sure you have installed all of the following prerequisites on your development machine:
 
-- [Twitter](https://dev.twitter.com/rest/public)
-  + Developer publish and subscribe [API keys](https://www.dev.twitter.com/docs): 
-  ``` javascript
-  var twitter_key = process.env.TWITTER_API_KEY;
-  var facebook_key = process.env.FB_API_KEY;
-  ```
+* Node 4.4.3
+* Express 4.13.4
+* React 15.0.2
+* Redux 3.5.2
+* Sequelize 3.22.0
+* MySQL 2.10.x
+* OAuth 2.0
 
 ## Development <a id="development"></a>
 
@@ -52,28 +48,46 @@ npm install
 
 ### Tasks <a id="tasks"></a>
 
-From within the root directory:
+From within the /server directory:
 
 1. Create a bare `.env` file
-1. Include your [publish/subscribe keys](#requirements) as key=value pairs
-
-Finally,
+2. Include the secret Google OAuth Client ID, Secret and Express Session Secret like this:
 
 ```sh
-npm run test:client
-heroku local
+GOOGLE_CID=987654321randomsomethinghere
+GOOGLE_CSECRET=itsasecret
+SESSION_SECRET="somethinghere"
 ```
+
+### Launching App
+
+Launch the MySQL server by running:
+
+```
+mysql.server start
+```
+
+Then create a MySQl table called `pluribus`.
+
+In the root folder, run:
+```
+webpack -w
+``` 
+
+In the /server folder, run:
+
+```
+npm server.js
+```
+
+Finally, navigate to `http://localhost:3000` on your web browser.
 
 ## Team <a id="team"></a>
 
 + Mark Keith
-  - Has a heart full of civic passion
-
 + Todd Bontrager
-  - Is a father to us all
-
 + Nicolas Vinson
-  - Keeps the spirit strong
+
 
 ### Roadmap <a id="roadmap"></a>
 

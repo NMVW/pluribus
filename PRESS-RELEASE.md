@@ -25,14 +25,14 @@ Once the project moves into development, the press release can be used as a touc
 ## Local opinion heat map ##
   > What does your community's opinion look like on a map? Head to Pluribus.
   > How does your city feel about the upcoming U.S. Presidential election? Zoom-in.
-  > Or hows does the nation feel about potato chips? Zoom-out.
+  > Or how does the nation feel about potato chips? Zoom-out.
   
 ## Summary ##
   > A data-driven map, Pluribus shows you where your city stands
   > on issues both on a local and national level.
   
 ## Problems ##
-  > Where is my polling office? Does my voice matter?
+  > Where can I find where my polling office is? Does my voice matter? Is anyone talking about city parks?
 
 ## Solutions ##
   > A map to guide your and others' ideas and turn them into actionable change.
@@ -43,12 +43,11 @@ Once the project moves into development, the press release can be used as a touc
   
 ## How to Get Started ##
   > 1. Search issue: dogs, utility bills, education, etc.
-  > 2. See a map of opinions near you on the issue
+  > 2. See a map of opinions near you about the issue
   > 3. Start a movement with like-minded Plurbs.
 
 ## Citizen Quote ##
-  > "Our city is fund-raising to build a dog park, 3 weeks ago I was the only
-  > tweet about dogs in my city on Pluribus." - anonymous dog owner
+  > "Our city is now fund-raising to build a dog park. 3 weeks ago I was the only plurb about dogs in my city on Pluribus." - anonymous dog owner
 
 ## Call to Action ##
   > Change requires people to want it to happen. 
