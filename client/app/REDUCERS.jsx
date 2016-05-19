@@ -4,12 +4,13 @@ import { combineReducers } from 'redux';
 
 import { ADD_FRIEND, GET_FRIENDS, LOAD_FRIENDS, REMOVE_FRIEND } from './components/Feed/Message/MESSAGE_ACTIONS.jsx';
 import { SELECT_TOPIC, GET_TOPICS, LOAD_TOPICS, SELECT_USER, GET_USERS, LOAD_USERS } from './components/Feed/Search/SEARCH_ACTIONS.jsx';
-import { FETCHING, SET_FILTER, CREATE_PLURB, LOAD_PLURBS, GET_PLURBS, UPDATE_MAP_BOUNDS, AUTHENTICATE } from './ACTIONS.jsx';
+import { FETCHING, SET_FILTER, SET_CLIENT, CREATE_PLURB, LOAD_PLURBS, GET_PLURBS, UPDATE_MAP_BOUNDS, AUTHENTICATE } from './ACTIONS.jsx';
 
 const initialState = {
   authenticated: false,
   currentTopicId: null,
   currentUserId: null,
+  clientID: null,
   mapBounds: {
     maxLat:38.87,
     maxLng:-76.95,
@@ -41,6 +42,10 @@ function pluribusReducer(state = initialState, action) {
     case SET_FILTER:
       return Object.assign({}, state, {
         filter: action.filter
+      })
+    case SET_CLIENT:
+      return Object.assign({}, state, {
+        clientID: action.clientID
       })
     case SELECT_TOPIC:
       return Object.assign({}, state, {

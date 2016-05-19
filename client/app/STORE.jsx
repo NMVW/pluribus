@@ -6,6 +6,7 @@ const initialState = {
   authenticated: false,
   currentTopicId: null,
   currentUserId: null,
+  clientID: null,
   mapBounds: {
     maxLat:38.87,
     maxLng:-76.95,
