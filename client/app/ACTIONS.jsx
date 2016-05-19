@@ -35,7 +35,9 @@ export function createPlurb(plurb, mapBounds, filter) {
     credentials: 'same-origin',
     body: JSON.stringify(plurb),
   }).then((body) => {
-    store.dispatch(getPlurbs({topicId:plurb.topicId, mapBounds, filter}));
+    // send event to server
+    socket.emit('plurb sent');
+    // store.dispatch(getPlurbs({topicId:plurb.topicId, mapBounds, filter}));
   }).catch((error) => {
     console.error(error);
   });
