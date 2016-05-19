@@ -3,6 +3,7 @@ import store from './STORE.jsx';
 
 // sync
 export const SET_FILTER = 'SET_FILTER';
+export const SET_CLIENT = 'SET_CLIENT';
 export const UPDATE_MAP_BOUNDS = 'UPDATE_MAP_BOUNDS';
 export const AUTHENTICATE = 'AUTHENTICATE';
 // async
@@ -15,6 +16,10 @@ export const FETCHING = 'FETCHING';
 // sync
 export function setFilter(filter) {
   return { type: SET_FILTER, filter }
+}
+
+export function setClientID(clientID) {
+  return { type: SET_CLIENT, clientID }
 }
 
 export function authenticate(verified) {
