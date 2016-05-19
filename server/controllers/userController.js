@@ -59,12 +59,12 @@ module.exports = {
   getFriends: function (req, res) {
     var googId = req.session.user;
     User.find({where: {googid: googId}})
-    .then(function(user){
+    .then(function(user) {
       //uses the built-in Sequelize method to get a user's friends from the UserFriends table
-      user.getFriends()
+      return user.getFriends();
+    })
       .then(function(friends){
-      res.status(200).json(friends);  
-      });
+      res.status(200).json(friends);
     })
     .catch(function (err) {
       console.error(err);
