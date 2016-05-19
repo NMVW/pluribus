@@ -13,7 +13,7 @@ import Delete from 'material-ui/svg-icons/content/clear';
 // utils
 import { rePosition } from '../../Map/map_utils.jsx';
 import { setTopic, setUser } from '../Search/SEARCH_ACTIONS.jsx';
-import { addFriend, removeFriend } from './MESSAGE_ACTIONS.jsx';
+import { addFriend, removeFriend, deletePlurb } from './MESSAGE_ACTIONS.jsx';
 
 export default class Message extends React.Component {
   constructor(props) {
@@ -30,6 +30,7 @@ export default class Message extends React.Component {
     this._addFriend = this._addFriend.bind(this);
     this._selectTopic = this._selectTopic.bind(this);
     this._selectUser = this._selectUser.bind(this);
+    this._delete = this._delete.bind(this);
   }
   
   _reLoc() {
@@ -82,6 +83,11 @@ export default class Message extends React.Component {
     
     // update search + store
     this.props.dispatch(setUser(uid, mapBounds, filter));
+  }
+  
+  _delete() {
+    console.log('delete plurb');
+    deletePlurb(this.props.plurb.id);
   }
   
   render() {
