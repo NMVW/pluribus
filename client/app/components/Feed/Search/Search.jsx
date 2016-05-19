@@ -191,6 +191,9 @@ class Search extends React.Component {
     let icon = (<IconButton tooltip={this.state.toolTip} tooltipPosition="top-center" onTouchTap={this._removeItem}>
                 <Close />
               </IconButton>);
+    let style = {
+      display: this.state.filtered.length ? "none" : "inline",
+    }
     if (this.props.currentTopicId || this.props.currentUserId) {
       element = (
       <Paper style={{'backgroundColor': '#F65151', 'marginTop':'10px', 'display': 'inline-block'}}>
@@ -206,11 +209,14 @@ class Search extends React.Component {
         onKeyDown={ this._check }
         value= { this.state.currentItem }
         inputStyle={{ color : 'white' }}
+        floatingLabelText={<p style={style}>Enter to create topic</p>}
+        floatingLabelFixed={true}
+        style={{height: "67px"}}
       />);
     }
 
     return (
-      <div style={{'backgroundColor': '#00BCD4', 'width':'100%', paddingBottom:'10px', height:'65px'}}>
+      <div style={{'backgroundColor': '#00BCD4', 'width':'100%', paddingBottom:'15px', height:'65px'}}>
           <div style={{paddingLeft:'10px', 'display': 'inline-block', 'verticalAlign': 'middle'}}><EyeGlass color="white" /></div>
           <div style={{'display': 'inline-block', 'verticalAlign': 'middle', paddingLeft:'10px'}}>{element}</div>
         <DropDownContainer
