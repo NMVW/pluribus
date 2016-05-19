@@ -1,5 +1,5 @@
 import store from '../../STORE.jsx';
-import { setClientID } from '../../ACTIONS.jsx';
+import { setClient } from '../../ACTIONS.jsx';
 
 export function whoAmI() {
   // determine identity at login
@@ -12,8 +12,12 @@ export function whoAmI() {
     credentials: 'same-origin',
   }).then((res) => {
     return res.text();
-  }).then((clientID) => {
-    // set clientID string on store
-    store.dispatch(setClientID(clientID));
+  }).then((clientData) => {
+    let client = JSON.parse(clientData);
+    let clientID = client.googid;
+    let clientName = client.firstName;
+    
+    // set client on store
+    store.dispatch(setClient(clientID, clientName));
   });
 }
