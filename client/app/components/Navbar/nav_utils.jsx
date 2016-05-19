@@ -1,3 +1,5 @@
+import store from '../../STORE.jsx';
+import { setClientID } from '../../ACTIONS.jsx';
 
 export function whoAmI() {
   // determine identity at login
@@ -11,7 +13,7 @@ export function whoAmI() {
   }).then((res) => {
     return res.text();
   }).then((clientID) => {
-    console.log(typeof clientID);
+    // set clientID string on store
+    store.dispatch(setClientID(clientID));
   });
-  // store it on store
 }
