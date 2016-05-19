@@ -56,7 +56,7 @@ module.exports = {
     var plurbId = req.params.plurbId;
     Plurb.destroy({where: {id: plurbId}})
     .then(function () {
-      res.status(201);
+      res.status(201).json("Plurb deleted");
     })
     .catch(function (err) {
       console.error(err);

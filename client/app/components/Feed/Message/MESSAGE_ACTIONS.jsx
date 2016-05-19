@@ -55,7 +55,6 @@ export function deletePlurb(plurbId) {
     },
     credentials: 'same-origin',
   }).then((res) => {
-    console.log('deleted plurb:',res);
     // send event to server
     socket.emit('plurb removed');
   });
