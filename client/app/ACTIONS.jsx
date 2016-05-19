@@ -18,8 +18,8 @@ export function setFilter(filter) {
   return { type: SET_FILTER, filter }
 }
 
-export function setClientID(clientID) {
-  return { type: SET_CLIENT, clientID }
+export function setClient(clientID, clientName) {
+  return { type: SET_CLIENT, clientID, clientName }
 }
 
 export function authenticate(verified) {

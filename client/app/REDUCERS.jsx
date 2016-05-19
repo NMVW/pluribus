@@ -11,6 +11,7 @@ const initialState = {
   currentTopicId: null,
   currentUserId: null,
   clientID: null,
+  clientName: '',
   mapBounds: {
     maxLat:38.87,
     maxLng:-76.95,
@@ -45,7 +46,8 @@ function pluribusReducer(state = initialState, action) {
       })
     case SET_CLIENT:
       return Object.assign({}, state, {
-        clientID: action.clientID
+        clientID: action.clientID,
+        clientName: action.clientName
       })
     case SELECT_TOPIC:
       return Object.assign({}, state, {
