@@ -93,9 +93,9 @@ export default class Message extends React.Component {
     // determine subheading to render
     let subheading;
     if (this.props.filter === 'TOPICS') {
-      subheading = <p>{"TOPICS"}</p>;//<p onClick={ this._selectTopic.bind(this, this.props.plurb.TopicId, this.props.plurb.Topic.name) }>{this.props.plurb.Topic.name}</p>
+      subheading = <p onClick={ this._selectTopic }>{this.props.plurb.Topic.name}</p>
     } else {
-      subheading = <p>{"FRIENDS"}</p>;//<p onClick={ this._selectUser.bind(this, this.props.plurb.UserGoogid) }>{this.props.plurb.firstName + ' ' + this.props.plurb.lastName}</p>
+      subheading = <p onClick={ this._selectUser }>{this.props.plurb.firstName + ' ' + this.props.plurb.lastName}</p>
     }
     let name = this.props.plurb.firstName + ' ' + this.props.plurb.lastName;
     let image = <Avatar
