@@ -53,7 +53,6 @@ export function getPlurbs(options) {
   //   googId: (optional)
   // }
   // NOTE: googId(selected user)
-  console.log('calling getPlurbs with: ', options)
   
   fetch('/api/plurbs', {
       method: 'POST',

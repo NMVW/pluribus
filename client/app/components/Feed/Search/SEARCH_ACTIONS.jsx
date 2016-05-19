@@ -61,8 +61,8 @@ export function loadTopics(topics) {
 }
 
 export function setUser(googId, mapBounds, filter) {
-  store.dispatch(getPlurbs({ topicId: undefined, mapBounds, googId, filter }));
-  return { type: SELECT_USER, currentTopicId: undefined, googId };
+  store.dispatch(getPlurbs({ topicId: null, mapBounds, googId, filter }));
+  return { type: SELECT_USER, currentTopicId: null, googId };
 }
 
 export function getUsers() {

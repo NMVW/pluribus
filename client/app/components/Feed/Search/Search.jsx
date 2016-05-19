@@ -46,27 +46,27 @@ class Search extends React.Component {
       
       // FRIENDS filter transition
       if(newProps.filter === 'FRIENDS') {
-        // set currentTopic to undefined
+        // set currentTopic to null
         if(this.props.currentTopicId) {
           // reset topicId
-          this.props.dispatch({ type: SELECT_TOPIC, topicId: undefined })
+          this.props.dispatch({ type: SELECT_TOPIC, topicId: null })
         }
         this.setState({
           currentItem: '',
         });
         // clean slate for user select
-        this.props.dispatch(setUser(undefined, this.props.mapBounds, newProps.filter));
+        this.props.dispatch(setUser(null, this.props.mapBounds, newProps.filter));
       } else {
       // TOPICS filter transition
         if(this.props.currentUserId) {
           // reset googId
-          this.props.dispatch({ type: SELECT_USER, googId: undefined })
+          this.props.dispatch({ type: SELECT_USER, googId: null })
         }
         this.setState({
           currentItem: '',
         });
         // clean slate for topic select
-        this.props.dispatch(setTopic(undefined, this.props.mapBounds, undefined, newProps.filter));
+        this.props.dispatch(setTopic(null, this.props.mapBounds, null, newProps.filter));
       }
     }
 
@@ -175,9 +175,9 @@ class Search extends React.Component {
 
   _removeItem(e) {
     if(this.state.filter === "FRIENDS") {
-      this.props.dispatch(setUser(undefined, this.props.mapBounds, this.state.filter));
+      this.props.dispatch(setUser(null, this.props.mapBounds, this.state.filter));
     } else {
-      this.props.dispatch(setTopic(undefined, this.props.mapBounds, undefined, this.state.filter));   
+      this.props.dispatch(setTopic(null, this.props.mapBounds, null, this.state.filter));   
     }
 
     this.setState({

@@ -49,8 +49,8 @@ class GoogleMap extends React.Component {
       }
       
       // update bounds on store, then re-fetch plurbs
-      this.props.dispatch(updateMapBounds(query.mapBounds))
-      this.props.dispatch(getPlurbs(query))
+      this.props.dispatch(updateMapBounds(query.mapBounds));
+      this.props.dispatch(getPlurbs(query));
     });
   }
 

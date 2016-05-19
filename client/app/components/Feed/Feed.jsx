@@ -15,7 +15,6 @@ export default class Feed extends React.Component {
     this.state = props;
   }
   sendPlurb() {
-    console.log('sending plurb');
   }
   render() {
     return <MuiThemeProvider muiTheme={getMuiTheme()}>

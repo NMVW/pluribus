@@ -80,8 +80,10 @@ module.exports = {
     //////////////////////////// FILTER set to FRIENDS ///////////////////////
     if (filter === 'FRIENDS') {
       
-      // if selectedUID is undefined
-      if (selectedUID === undefined) {
+      // if selectedUID is null
+      if (selectedUID === null) {
+        promised = true;
+
         // DEFAULT send plurbs of user's friends
         var friendsGoogIds = [];
 
@@ -103,17 +105,10 @@ module.exports = {
                 UserGoogid: {$in: friendsGoogIds}
               }
             };
-          });
-        })
-        .then(function() {
-          // SEND friends' plurbs in PROMISE CHAIN!!
-          Plurb.findAll(query)
-          .then(function (plurbs) {
-            console.log('here are all friends plurbs', plurbs.map(function(plurb) {
-              return plurb.dataValues.firstName;
-            }));
-            res.status(200).json(plurbs);
-            promised = true;
+            Plurb.findAll(query)
+            .then(function(plurbs) {
+              res.status(200).json(plurbs);
+            });
           })
           .catch(function (err) {
             console.error (err);
@@ -122,24 +117,24 @@ module.exports = {
         .catch(function(err) {
           console.error(err);
         });
-      }
-    } else {
+      } else {
       // SEARCH plurbs of selectedUID
-      query = {
-        include: [Topic],
-        where: {
-          lat: {$between: [minLat, maxLat]},
-          long: {$between: [minLng, maxLng]},
-          UserGoogid: selectedUID,
-        }
-      };      
+        query = {
+          include: [Topic],
+          where: {
+            lat: {$between: [minLat, maxLat]},
+            long: {$between: [minLng, maxLng]},
+            UserGoogid: selectedUID,
+          },
+        };
+      }
     }
-    
+
     //////////////////////////// FILTER set to TOPICS ///////////////////////
     if (filter === 'TOPICS') {
       
-      // if selectedTopicId is undefined
-      if (selectedTopicId === undefined) {
+      // if selectedTopicId is null
+      if (selectedTopicId === null) {
         // DEFAULT send all plurbs
         query = {
           include: [Topic],
@@ -166,9 +161,6 @@ module.exports = {
     if (!promised) { // make sure res was not already sent
       Plurb.findAll(query)
       .then(function (plurbs) {
-        console.log('here are all plurbs', plurbs.map(function(plurb) {
-          return plurb.dataValues.text;
-        }));
         res.status(200).json(plurbs);
       })
       .catch(function (err) {

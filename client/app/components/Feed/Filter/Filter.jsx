@@ -26,7 +26,6 @@ class Filter extends React.Component {
       filter: filt
     });
     this.props.dispatch(setFilter(filt));
-    this.props.dispatch(getPlurbs({mapBounds: this.props.mapBounds, filter: filt}))
   }
   
   render() {
