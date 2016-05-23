@@ -1,3 +1,3 @@
-describe('main reducer', () => {
-  it('FETCHING should not modify store object')
-})
+// describe('main reducer', () => {
+//   it('FETCHING should not modify store object')
+// })
