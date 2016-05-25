@@ -68,7 +68,7 @@ class NavBar extends React.Component {
       <Navbar 
         title="Pluribus"
         iconElementLeft={activeElement}
-        iconElementRight={<FlatButton label={greeting} />}
+        iconElementRight={<FlatButton onClick={this._handleTouchTap} label={greeting} />}
       />
     </MuiThemeProvider>
   }
