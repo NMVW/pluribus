@@ -52,7 +52,7 @@ class NavBar extends React.Component {
   
   render() {
     let activeElement;
-    let greeting = "Welcome, outsider.";
+    let greeting = "Welcome, visitor.";
     if (this.props.clientName) {
       greeting = "Hello, " + this.props.clientName;
     }
