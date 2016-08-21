@@ -33,15 +33,15 @@ class GoogleMap extends React.Component {
       let newBounds = map.getBounds();
       
       // pull map bounds off view port
-      let Lats = newBounds.H;
-      let Lngs = newBounds.j;
+      let Lats = newBounds.f; // H is f API change
+      let Lngs = newBounds.b; // j is b API change
             
       let query = {
         mapBounds: {
-          maxLat: +Lats.j.toFixed(2),
-          maxLng: +Lngs.H.toFixed(2),
-          minLat: +Lats.H.toFixed(2),
-          minLng: +Lngs.j.toFixed(2)   
+          maxLat: +Lats.b.toFixed(2), 
+          maxLng: +Lngs.f.toFixed(2),
+          minLat: +Lats.f.toFixed(2),
+          minLng: +Lngs.b.toFixed(2)   
         },
         topicId: this.props.currentTopicId,
         googId: this.props.currentUserId,
